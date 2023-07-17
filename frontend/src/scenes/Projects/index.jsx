@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React from "react";
+
 import {
   Box,
   useMediaQuery,
@@ -7,8 +7,6 @@ import {
   useTheme,
   Card,
   CardContent,
-  CardActions,
-  Button,
 } from "@mui/material";
 import HeaderMobile from "components-mobile/HeaderMobile";
 import HeaderNonMobile from "components/HeaderNonMobile";
@@ -17,40 +15,9 @@ import {
   useGetCompletedProjectDataQuery,
 } from "state/api";
 import { tokens } from "theme";
-import jwt from "jsonwebtoken";
 
 const OngoingProjects = () => {
   const isMobile = useMediaQuery("(max-width:686px)");
-  const navigate = useNavigate();
-
-  async function populateQuote() {
-    const req = await fetch("http://localhost:5001/api/quote", {
-      headers: {
-        "x-access-token": localStorage.getItem("token"),
-      },
-    });
-    const data = await req.json();
-
-    if (data.status === "ok") {
-    } else {
-      alert(data.error);
-    }
-  }
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const user = jwt.decode(token);
-      if (!user) {
-        localStorage.removeItem("token");
-        navigate("/admin");
-      } else {
-        populateQuote();
-      }
-    } else {
-      navigate("/admin");
-    }
-  });
 
   const { data: ongoingProjects, isLoading: ongoingProjectsLoading } =
     useGetOngoingProjectDataQuery();
