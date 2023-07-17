@@ -34,6 +34,7 @@ const Request = ({
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const Department = department.toUpperCase() + " " + year;
+  const isMobile = useMediaQuery("(max-width:686px)");
   // const Photo = useState(photo);
   const extractIdFromLink = (link) => {
     const pattern = /id=([\w-]+)/;
@@ -52,10 +53,71 @@ const Request = ({
         borderRadius: "0.55rem",
       }}
     >
-      <Box display={"flex"}>
-        <CardContent sx={{ width: "30%" }}>
+      {!isMobile ? (
+        <Box display={"flex"}>
+          <CardContent sx={{ width: "30%" }}>
+            <CardMedia
+              sx={{ height: "25vh", width: "100%" }}
+              component={"img"}
+              image={
+                extractIdFromLink(photo)
+                  ? "https://drive.google.com/uc?export=view&id=" +
+                    extractIdFromLink(photo)
+                  : undefined
+              }
+            />
+          </CardContent>
+          <CardContent>
+            <Typography
+              sx={{
+                fontSize: "20px",
+                color: theme.palette.text.default,
+                gutterBottom: true,
+              }}
+            >
+              Position: {position}
+            </Typography>
+            <Typography variant="h2" component={"div"}>
+              {firstName.toUpperCase()} {lastName.toUpperCase()}
+            </Typography>
+
+            <Typography
+              variant="h4"
+              fontWeight={"700"}
+              color={colors.grey[200]}
+              mt={"0.5rem"}
+            >
+              {Department}
+            </Typography>
+
+            <Typography
+              color={colors.blueAccent[100]}
+              variant="h5"
+            ></Typography>
+            <Typography
+              color={colors.grey[200]}
+              variant="h6"
+              fontWeight={"700"}
+            ></Typography>
+            <Typography variant="h4" mt={"1rem"}>
+              {" "}
+              Field of Intrest:
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "20px",
+                color: theme.palette.text.default,
+                gutterBottom: true,
+              }}
+            >
+              {domain}
+            </Typography>
+          </CardContent>
+        </Box>
+      ) : (
+        <CardContent sx={{ width: "100%" }}>
           <CardMedia
-            sx={{ height: "25vh", width: "100%" }}
+            sx={{ width: "100%" }}
             component={"img"}
             image={
               extractIdFromLink(photo)
@@ -64,8 +126,7 @@ const Request = ({
                 : undefined
             }
           />
-        </CardContent>
-        <CardContent>
+
           <Typography
             sx={{
               fontSize: "20px",
@@ -108,10 +169,7 @@ const Request = ({
             {domain}
           </Typography>
         </CardContent>
-      </Box>
-      <CardActions>
-        <Box display={"flex"} width={"100%"}></Box>
-      </CardActions>
+      )}
     </Card>
   );
 };
