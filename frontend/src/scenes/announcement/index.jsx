@@ -80,7 +80,7 @@ const Announcement = ({ _id, title, link }) => {
               }}
             >
               <Link
-                to={`https://${link}`}
+                to={`${link}`}
                 variant="h3"
                 sx={{
                   m: "2.25rem 0 1rem 2.25rem",
