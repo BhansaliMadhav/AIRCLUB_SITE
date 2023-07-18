@@ -9,7 +9,7 @@ const AdminControls = () => {
   const [quote, setQuote] = useState("");
   const [tempQuote, setTempQuote] = useState("");
   async function populateQuote() {
-    const req = await fetch(process.env.REACT_APP_BASE_URL + "api/quote", {
+    const req = await fetch(process.env.REACT_APP_BASE_URL + "/api/quote", {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },

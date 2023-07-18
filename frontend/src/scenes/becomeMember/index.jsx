@@ -42,7 +42,7 @@ const BecomeMember = () => {
       link: link,
     });
     const response = await fetch(
-      process.env.REACT_APP_BASE_URL + "member/becomeMember",
+      process.env.REACT_APP_BASE_URL + "/member/becomeMember",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

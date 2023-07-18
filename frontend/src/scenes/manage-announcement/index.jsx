@@ -32,7 +32,7 @@ const ManageAnnouncement = () => {
   const navigate = useNavigate();
 
   async function populateQuote() {
-    const req = await fetch(process.env.REACT_APP_BASE_URL + "api/quote", {
+    const req = await fetch(process.env.REACT_APP_BASE_URL + "/api/quote", {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -68,7 +68,7 @@ const ManageAnnouncement = () => {
   async function Add(event) {
     event.preventDefault();
     const response = await fetch(
-      process.env.REACT_APP_BASE_URL + "announcement/add",
+      process.env.REACT_APP_BASE_URL + "/announcement/add",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -91,7 +91,7 @@ const ManageAnnouncement = () => {
   async function Remove(event) {
     event.preventDefault();
     const response = await fetch(
-      process.env.REACT_APP_BASE_URL + "announcement/remove",
+      process.env.REACT_APP_BASE_URL + "/announcement/remove",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -21,15 +21,18 @@ const Admin = () => {
   const navigate = useNavigate();
   async function Login(event) {
     event.preventDefault();
-    const response = await fetch(process.env.REACT_APP_BASE_URL + "api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + "/api/login",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
 
-      body: JSON.stringify({
-        userId,
-        password,
-      }),
-    });
+        body: JSON.stringify({
+          userId,
+          password,
+        }),
+      }
+    );
     const data = await response.json();
     if (data.user) {
       localStorage.setItem("token", data.user);

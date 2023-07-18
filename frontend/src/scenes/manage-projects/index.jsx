@@ -57,7 +57,7 @@ const ManageProjectData = () => {
   const navigate = useNavigate();
 
   async function populateQuote() {
-    const req = await fetch(process.env.REACT_APP_BASE_URL + "api/quote", {
+    const req = await fetch(process.env.REACT_APP_BASE_URL + "/api/quote", {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -104,7 +104,7 @@ const ManageProjectData = () => {
   async function Add(event) {
     event.preventDefault();
     const response = await fetch(
-      process.env.REACT_APP_BASE_URL + "project/add",
+      process.env.REACT_APP_BASE_URL + "/project/add",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -128,7 +128,7 @@ const ManageProjectData = () => {
   async function Remove(event) {
     event.preventDefault();
     const response = await fetch(
-      process.env.REACT_APP_BASE_URL + "project/remove",
+      process.env.REACT_APP_BASE_URL + "/project/remove",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -168,7 +168,7 @@ const ManageProjectData = () => {
   async function Modify(event) {
     event.preventDefault();
     const response = await fetch(
-      process.env.REACT_APP_BASE_URL + "project/update",
+      process.env.REACT_APP_BASE_URL + "/project/update",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

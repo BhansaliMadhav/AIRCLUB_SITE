@@ -22,7 +22,7 @@ const MemberRequests = () => {
   const navigate = useNavigate();
 
   async function populateQuote() {
-    const req = await fetch(process.env.REACT_APP_BASE_URL + "api/quote", {
+    const req = await fetch(process.env.REACT_APP_BASE_URL + "/api/quote", {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -54,7 +54,7 @@ const MemberRequests = () => {
 
   async function Approve(event, _id) {
     const response = await fetch(
-      process.env.REACT_APP_BASE_URL + "member/approve",
+      process.env.REACT_APP_BASE_URL + "/member/approve",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -75,7 +75,7 @@ const MemberRequests = () => {
   async function Deny(event, _id) {
     event.preventDefault();
     const response = await fetch(
-      process.env.REACT_APP_BASE_URL + "member/deny",
+      process.env.REACT_APP_BASE_URL + "/member/deny",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

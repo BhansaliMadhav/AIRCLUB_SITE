@@ -49,7 +49,7 @@ const ManageMember = () => {
   const navigate = useNavigate();
 
   async function populateQuote() {
-    const req = await fetch(process.env.REACT_APP_BASE_URL + "api/quote", {
+    const req = await fetch(process.env.REACT_APP_BASE_URL + "/api/quote", {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -112,7 +112,7 @@ const ManageMember = () => {
   async function handleFormSubmit(event) {
     event.preventDefault();
     const response = await fetch(
-      process.env.REACT_APP_BASE_URL + "member/add",
+      process.env.REACT_APP_BASE_URL + "/member/add",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -144,7 +144,7 @@ const ManageMember = () => {
   async function handleRemove(event) {
     event.preventDefault();
     const response = await fetch(
-      process.env.REACT_APP_BASE_URL + "member/remove",
+      process.env.REACT_APP_BASE_URL + "/member/remove",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
