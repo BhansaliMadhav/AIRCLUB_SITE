@@ -11,13 +11,14 @@ import { tokens } from "theme";
 import HeaderMobile from "components-mobile/HeaderMobile";
 import HeaderNonMobile from "components/HeaderNonMobile";
 import Footer from "components/Footer";
+import { useNavigate } from "react-router-dom";
 const Admin = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isMobile = useMediaQuery("(max-width:686px)");
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
   async function Login(event) {
     event.preventDefault();
     const response = await fetch("http://localhost:5001/api/login", {
@@ -33,7 +34,7 @@ const Admin = () => {
     if (data.user) {
       localStorage.setItem("token", data.user);
       alert("Login Successful");
-      window.location.href = "/admin-controls";
+      navigate("/admin-controls");
     } else {
       alert("Please Check your userId and password");
     }
