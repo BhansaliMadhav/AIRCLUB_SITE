@@ -67,7 +67,9 @@ const Announcement = ({ _id, title, link }) => {
             <Box
               key={_id}
               sx={{
-                m: "2rem 5rem 2rem 5rem",
+                m: secondisMobile
+                  ? "2rem 0.5rem 2rem 0.5rem"
+                  : "2rem 5rem 2rem 5rem",
                 fontSize: "2rem",
                 color: "black",
                 backgroundColor: theme.palette.background.alt2,
