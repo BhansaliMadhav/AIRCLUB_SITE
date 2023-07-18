@@ -34,8 +34,10 @@ const Admin = () => {
     if (data.user) {
       localStorage.setItem("token", data.user);
       // alert("Login Successful");
+      console.log("triggered success");
       navigate("/admin-controls");
     } else {
+      console.log("triggered failure");
       alert("Please Check your userId and password");
     }
     // console.log(data);
