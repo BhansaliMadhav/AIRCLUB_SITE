@@ -52,7 +52,7 @@ const ManageEventData = () => {
   const navigate = useNavigate();
 
   async function populateQuote() {
-    const req = await fetch("http://localhost:5001/api/quote", {
+    const req = await fetch(process.env.REACT_APP_BASE_URL + "api/quote", {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -91,7 +91,7 @@ const ManageEventData = () => {
   const [copiedData, setCopiedDate] = useState("");
   async function Add(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:5001/event/add", {
+    const response = await fetch(process.env.REACT_APP_BASE_URL + "event/add", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
 
@@ -112,14 +112,17 @@ const ManageEventData = () => {
 
   async function Remove(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:5001/event/remove", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + "event/remove",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
 
-      body: JSON.stringify({
-        _id,
-      }),
-    });
+        body: JSON.stringify({
+          _id,
+        }),
+      }
+    );
     const data = await response.json();
     console.log("data", data);
     if (data.status === "200") {

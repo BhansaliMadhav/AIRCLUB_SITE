@@ -9,7 +9,7 @@ const AdminControls = () => {
   const [quote, setQuote] = useState("");
   const [tempQuote, setTempQuote] = useState("");
   async function populateQuote() {
-    const req = await fetch("http://localhost:5001/api/quote", {
+    const req = await fetch(process.env.REACT_APP_BASE_URL + "api/quote", {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -38,7 +38,7 @@ const AdminControls = () => {
   });
   async function updateQuote(event) {
     // event.preventDefault();
-    const req = await fetch("http://localhost:5001/api/quote", {
+    const req = await fetch(process.env.REACT_APP_BASE_URL + "api/quote", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

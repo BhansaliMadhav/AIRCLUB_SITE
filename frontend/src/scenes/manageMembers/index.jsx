@@ -49,7 +49,7 @@ const ManageMember = () => {
   const navigate = useNavigate();
 
   async function populateQuote() {
-    const req = await fetch("http://localhost:5001/api/quote", {
+    const req = await fetch(process.env.REACT_APP_BASE_URL + "api/quote", {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -111,22 +111,25 @@ const ManageMember = () => {
   };
   async function handleFormSubmit(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:5001/member/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        phone: phone,
-        department: department,
-        rollNumber: rollNumber,
-        photo: photo,
-        position: position,
-        year: year,
-        domain: domain === "Others" ? domainOther : domain,
-      }),
-    });
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + "member/add",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone,
+          department: department,
+          rollNumber: rollNumber,
+          photo: photo,
+          position: position,
+          year: year,
+          domain: domain === "Others" ? domainOther : domain,
+        }),
+      }
+    );
     const data = await response.json();
     // console.log("data", data);
     if (data.status === "200") {
@@ -140,13 +143,16 @@ const ManageMember = () => {
 
   async function handleRemove(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:5001/member/remove", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        _id: selectedMemberId,
-      }),
-    });
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + "member/remove",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          _id: selectedMemberId,
+        }),
+      }
+    );
     const data = await response.json();
     // console.log("data", data);
     if (data.status === "200") {

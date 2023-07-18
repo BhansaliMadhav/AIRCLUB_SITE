@@ -57,7 +57,7 @@ const ManageProjectData = () => {
   const navigate = useNavigate();
 
   async function populateQuote() {
-    const req = await fetch("http://localhost:5001/api/quote", {
+    const req = await fetch(process.env.REACT_APP_BASE_URL + "api/quote", {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -103,17 +103,20 @@ const ManageProjectData = () => {
 
   async function Add(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:5001/project/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        Project_title: projecttitle,
-        Project_description: description,
-        Current_fundings: fundings,
-        Project_contact_person: contactperson,
-        Current_status: currentstatus,
-      }),
-    });
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + "project/add",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          Project_title: projecttitle,
+          Project_description: description,
+          Current_fundings: fundings,
+          Project_contact_person: contactperson,
+          Current_status: currentstatus,
+        }),
+      }
+    );
     const data = await response.json();
     if (data.status === "200") {
       alert(data.message);
@@ -124,13 +127,16 @@ const ManageProjectData = () => {
 
   async function Remove(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:5001/project/remove", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        _id,
-      }),
-    });
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + "project/remove",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          _id,
+        }),
+      }
+    );
     const data = await response.json();
     if (data.status === "200") {
       alert("Successfull");
@@ -161,15 +167,18 @@ const ManageProjectData = () => {
 
   async function Modify(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:5001/project/update", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        _id: projectId,
-        Current_fundings: modifiedFundings,
-        Current_status: modifiedStatus,
-      }),
-    });
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + "project/update",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          _id: projectId,
+          Current_fundings: modifiedFundings,
+          Current_status: modifiedStatus,
+        }),
+      }
+    );
     const data = await response.json();
     if (data.status === "200") {
       alert("successfull");

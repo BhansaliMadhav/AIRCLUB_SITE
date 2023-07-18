@@ -32,7 +32,7 @@ const ManageAnnouncement = () => {
   const navigate = useNavigate();
 
   async function populateQuote() {
-    const req = await fetch("http://localhost:5001/api/quote", {
+    const req = await fetch(process.env.REACT_APP_BASE_URL + "api/quote", {
       headers: {
         "x-access-token": localStorage.getItem("token"),
       },
@@ -67,15 +67,18 @@ const ManageAnnouncement = () => {
 
   async function Add(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:5001/announcement/add", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + "announcement/add",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
 
-      body: JSON.stringify({
-        title: title,
-        link,
-      }),
-    });
+        body: JSON.stringify({
+          title: title,
+          link,
+        }),
+      }
+    );
     const data = await response.json();
     console.log(data.status);
     if (data.status === 200) {
@@ -87,14 +90,17 @@ const ManageAnnouncement = () => {
 
   async function Remove(event) {
     event.preventDefault();
-    const response = await fetch("http://localhost:5001/announcement/remove", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + "announcement/remove",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
 
-      body: JSON.stringify({
-        _id,
-      }),
-    });
+        body: JSON.stringify({
+          _id,
+        }),
+      }
+    );
     const data = await response.json();
     console.log("data", data);
     if (data.status === "200") {

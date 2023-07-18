@@ -41,20 +41,23 @@ const BecomeMember = () => {
       domain: domain === "Others" ? domainOther : domain,
       link: link,
     });
-    const response = await fetch("http://localhost:5001/member/becomeMember", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + "member/becomeMember",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
 
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        email,
-        phone,
-        department,
-        domain,
-        link,
-      }),
-    });
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          phone,
+          department,
+          domain,
+          link,
+        }),
+      }
+    );
     const data = await response.json();
     if (data.requestRecived === true) {
       alert("Request Submitted");
