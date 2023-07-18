@@ -33,7 +33,7 @@ const Admin = () => {
     const data = await response.json();
     if (data.user) {
       localStorage.setItem("token", data.user);
-      alert("Login Successful");
+      // alert("Login Successful");
       navigate("/admin-controls");
     } else {
       alert("Please Check your userId and password");
