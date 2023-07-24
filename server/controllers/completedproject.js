@@ -2,7 +2,7 @@ import ProjectData from "../models/projectmodel.js";
 import verifyUser from "./uservalidation.js";
 export const getCompletedProjectData = async (req, res) => {
   const apiKey = req.headers.authorization;
-  const verified = verifyAdmin(apiKey);
+  const verified = verifyUser(apiKey);
   if (verified) {
     try {
       const completedprojectdata = await ProjectData.find({
