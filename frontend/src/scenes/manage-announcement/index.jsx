@@ -8,7 +8,7 @@ import HeaderNonMobile from "components/HeaderNonMobile";
 import { useGetAnnouncementsQuery } from "state/api";
 import { useNavigate } from "react-router-dom";
 import jwt from "jsonwebtoken";
-import Footer from "components/Footer";
+
 const columns = [
   {
     field: "_id",
@@ -71,7 +71,10 @@ const ManageAnnouncement = () => {
       process.env.REACT_APP_BASE_URL + "/announcement/add",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+        },
 
         body: JSON.stringify({
           title: title,
@@ -86,6 +89,7 @@ const ManageAnnouncement = () => {
     } else {
       alert("There was an error Adding Announcement Please try Again later");
     }
+    window.location.reload();
   }
 
   async function Remove(event) {
@@ -94,7 +98,10 @@ const ManageAnnouncement = () => {
       process.env.REACT_APP_BASE_URL + "/announcement/remove",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+        },
 
         body: JSON.stringify({
           _id,
@@ -108,6 +115,7 @@ const ManageAnnouncement = () => {
     } else {
       alert(data.error);
     }
+    window.location.reload();
   }
 
   const [unit, setUnit] = React.useState("ADD");

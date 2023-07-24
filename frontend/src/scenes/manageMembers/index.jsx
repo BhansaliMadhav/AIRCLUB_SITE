@@ -115,7 +115,10 @@ const ManageMember = () => {
       process.env.REACT_APP_BASE_URL + "/member/add",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+        },
         body: JSON.stringify({
           firstName: firstName,
           lastName: lastName,
@@ -138,7 +141,7 @@ const ManageMember = () => {
     } else {
       alert(data.error);
     }
-    // console.log({});
+    window.location.reload();
   }
 
   async function handleRemove(event) {
@@ -147,7 +150,10 @@ const ManageMember = () => {
       process.env.REACT_APP_BASE_URL + "/member/remove",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+        },
         body: JSON.stringify({
           _id: selectedMemberId,
         }),
@@ -160,6 +166,7 @@ const ManageMember = () => {
     } else {
       alert(data.error);
     }
+    window.location.reload();
   }
 
   return (

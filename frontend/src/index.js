@@ -7,16 +7,13 @@ import globalReducer from "state";
 import { Provider } from "react-redux";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { api } from "state/api";
-import { apiImage } from "state/api";
 
 const store = configureStore({
   reducer: {
     global: globalReducer,
     [api.reducerPath]: api.reducer,
-    [apiImage.reducerPath]: apiImage.reducer,
   },
-  middleware: (getDefault) =>
-    getDefault().concat(api.middleware, apiImage.middleware), // Add apiImage.middleware here
+  middleware: (getDefault) => getDefault().concat(api.middleware), // Add apiImage.middleware here
 });
 setupListeners(store.dispatch);
 

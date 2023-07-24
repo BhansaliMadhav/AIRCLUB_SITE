@@ -1,7 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_BASE_URL }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: process.env.REACT_APP_BASE_URL,
+    prepareHeaders: (headers) => {
+      headers.set("Authorization", `${process.env.REACT_APP_UserApiKey}`);
+      return headers;
+    },
+  }),
   reducerPath: "api",
   tagTypes: [
     "Announcements",
@@ -74,20 +80,6 @@ export const api = createApi({
   }),
 });
 
-export const apiImage = createApi({
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://drive.google.com/",
-  }),
-  reducerPath: "apiImage",
-  tagTypes: ["Images"],
-  endpoints: (build) => ({
-    getImage: build.query({
-      query: (_id) => `uc?export=view&id=${_id}`,
-      providesTags: ["Images"],
-    }),
-  }),
-});
-
 export const {
   useGetAnnouncementsQuery,
   useGetBecomeMemberQuery,
@@ -103,5 +95,3 @@ export const {
   useGetOngoingProjectDataQuery,
   useGetCompletedProjectDataQuery,
 } = api;
-
-export const { useGetImageQuery } = apiImage;

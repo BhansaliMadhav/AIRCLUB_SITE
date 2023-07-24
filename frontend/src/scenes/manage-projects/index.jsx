@@ -107,7 +107,10 @@ const ManageProjectData = () => {
       process.env.REACT_APP_BASE_URL + "/project/add",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+        },
         body: JSON.stringify({
           Project_title: projecttitle,
           Project_description: description,
@@ -123,6 +126,7 @@ const ManageProjectData = () => {
     } else {
       alert(data.error);
     }
+    window.location.reload();
   }
 
   async function Remove(event) {
@@ -131,7 +135,10 @@ const ManageProjectData = () => {
       process.env.REACT_APP_BASE_URL + "/project/remove",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+        },
         body: JSON.stringify({
           _id,
         }),
@@ -143,6 +150,7 @@ const ManageProjectData = () => {
     } else {
       alert("error");
     }
+    window.location.reload();
   }
 
   const [unit, setUnit] = React.useState("ADD");
@@ -171,7 +179,10 @@ const ManageProjectData = () => {
       process.env.REACT_APP_BASE_URL + "/project/update",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+        },
         body: JSON.stringify({
           _id: projectId,
           Current_fundings: modifiedFundings,
@@ -185,6 +196,7 @@ const ManageProjectData = () => {
     } else {
       alert("error");
     }
+    window.location.reload();
   }
 
   const handleProjectIdChange = (event) => {

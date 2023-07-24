@@ -57,7 +57,10 @@ const MemberRequests = () => {
       process.env.REACT_APP_BASE_URL + "/member/approve",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+        },
         body: JSON.stringify({
           _id: _id,
         }),
@@ -78,7 +81,10 @@ const MemberRequests = () => {
       process.env.REACT_APP_BASE_URL + "/member/deny",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+        },
         body: JSON.stringify({
           _id: _id,
         }),

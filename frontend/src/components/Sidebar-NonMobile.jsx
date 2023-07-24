@@ -11,6 +11,7 @@ import {
 import List from "@mui/material/List";
 
 import IconButton from "@mui/material/IconButton";
+import SmartButtonOutlinedIcon from "@mui/icons-material/SmartButtonOutlined";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -70,6 +71,10 @@ const navItems = [
   {
     text: "Admin",
     icon: <AdminPanelSettingsOutlined />,
+  },
+  {
+    text: "Technology Stacks",
+    icon: <SmartButtonOutlinedIcon />,
   },
 ];
 

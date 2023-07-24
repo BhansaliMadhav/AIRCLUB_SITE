@@ -64,10 +64,6 @@ const navItems = [
     text: "Member Requests",
     icon: <GroupAddOutlinedIcon />,
   },
-  {
-    text: "Admin Dashboard",
-    icon: <AdminPanelSettingsOutlined />,
-  },
 ];
 
 const DrawerHeader = styled("div")(({ theme }) => ({

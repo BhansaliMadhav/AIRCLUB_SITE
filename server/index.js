@@ -7,7 +7,8 @@ import helmet from "helmet";
 import morgan from "morgan";
 import User from "./models/user_model.js";
 import EventData from "./models/eventmodel.js";
-
+import verifyUser from "./controllers/uservalidation.js";
+import verifyAdmin from "./controllers/adminValidation.js";
 import Announcement from "./models/announcenmentModel.js";
 import ProjectData from "./models/projectmodel.js";
 import MemberRequestModel from "./models/member_request.js";
@@ -49,46 +50,60 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => {});
+    app.listen(PORT, () => {
+      console.log(`Server started at port ${PORT}`);
+    });
   })
   .catch((err) => {});
 
 app.post("/api/register", async (req, res) => {
-  try {
-    const newPassword = await bcryptjs.hash(req.body.password, 10);
+  const apiKey = req.headers.authorization;
+  const verified = verifyAdmin(apiKey);
+  if (verified) {
+    try {
+      const newPassword = await bcryptjs.hash(req.body.password, 10);
 
-    const user = await User.create({
-      userId: req.body.userId,
-      password: newPassword,
-    });
-    res.status(200).json({ message: " User Registered" });
-  } catch (err) {
-    res.status(400).json({ error: err });
+      const user = await User.create({
+        userId: req.body.userId,
+        password: newPassword,
+      });
+      res.status(200).json({ message: " User Registered" });
+    } catch (err) {
+      res.status(400).json({ error: err });
+    }
+  } else {
+    res.status(401).json({ message: "UnAuthorised Access" });
   }
 });
 app.post("/api/login", async (req, res) => {
-  const user = await User.findOne({
-    userId: req.body.userId,
-  });
+  const apiKey = req.headers.authorization;
+  const verified = verifyAdmin(apiKey);
+  if (verified) {
+    const user = await User.findOne({
+      userId: req.body.userId,
+    });
 
-  if (!user) {
-    return res.json({ status: "error", error: "Invalid Login Credentials" });
-  }
-  const isPasswordValid = await bcryptjs.compare(
-    req.body.password,
-    user.password
-  );
-
-  if (isPasswordValid) {
-    const token = sign(
-      {
-        userId: user.userId,
-      },
-      "secret123"
+    if (!user) {
+      return res.json({ status: "error", error: "Invalid Login Credentials" });
+    }
+    const isPasswordValid = await bcryptjs.compare(
+      req.body.password,
+      user.password
     );
-    res.status(200).json({ user: token });
+
+    if (isPasswordValid) {
+      const token = sign(
+        {
+          userId: user.userId,
+        },
+        "secret123"
+      );
+      res.status(200).json({ user: token });
+    } else {
+      res.status(404).json({ user: false });
+    }
   } else {
-    res.status(404).json({ user: false });
+    res.status(401).json({ message: "UnAuthorised Access" });
   }
 });
 
@@ -122,26 +137,38 @@ app.post("/api/quote", async (req, res) => {
 // Announcement Section
 
 app.post("/announcement/add", async (req, res) => {
-  try {
-    var id = new mongoose.Types.ObjectId();
+  const apiKey = req.headers.authorization;
+  const verified = verifyAdmin(apiKey);
+  if (verified) {
+    try {
+      var id = new mongoose.Types.ObjectId();
 
-    const announcement = await Announcement.create({
-      _id: id,
-      title: req.body.title,
-      link: req.body.link,
-      display: true,
-    });
-    res.status(200).json({ status: 200, message: "Announcement added" });
-  } catch (err) {
-    res.status(400).json({ status: 400, error: err });
+      const announcement = await Announcement.create({
+        _id: id,
+        title: req.body.title,
+        link: req.body.link,
+        display: true,
+      });
+      res.status(200).json({ status: 200, message: "Announcement added" });
+    } catch (err) {
+      res.status(400).json({ status: 400, error: err });
+    }
+  } else {
+    res.status(401).json({ message: "UnAuthorised Access" });
   }
 });
 
 app.post("/announcement/remove", async (req, res) => {
-  try {
-    await Announcement.deleteOne({ _id: req.body._id });
-    res.status(200).json({ status: "200", message: "Announcement removed" });
-  } catch (err) {
-    res.status(400).json({ status: "400", error: err });
+  const apiKey = req.headers.authorization;
+  const verified = verifyAdmin(apiKey);
+  if (verified) {
+    try {
+      await Announcement.deleteOne({ _id: req.body._id });
+      res.status(200).json({ status: "200", message: "Announcement removed" });
+    } catch (err) {
+      res.status(400).json({ status: "400", error: err });
+    }
+  } else {
+    res.status(401).json({ message: "UnAuthorised Message" });
   }
 });

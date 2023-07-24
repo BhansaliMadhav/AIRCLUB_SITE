@@ -95,7 +95,10 @@ const ManageEventData = () => {
       process.env.REACT_APP_BASE_URL + "/event/add",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+        },
 
         body: JSON.stringify({
           Event_title: eventTitle,
@@ -111,6 +114,7 @@ const ManageEventData = () => {
     } else {
       alert("There was an error Adding Event Please try Again later");
     }
+    window.location.reload();
   }
 
   async function Remove(event) {
@@ -119,7 +123,10 @@ const ManageEventData = () => {
       process.env.REACT_APP_BASE_URL + "/event/remove",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+        },
 
         body: JSON.stringify({
           _id,
@@ -133,6 +140,7 @@ const ManageEventData = () => {
     } else {
       alert(data.error);
     }
+    window.location.reload();
   }
 
   const [unit, setUnit] = React.useState("ADD");

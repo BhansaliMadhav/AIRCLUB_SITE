@@ -18,6 +18,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { tokens } from "theme";
+import SmartButtonOutlinedIcon from "@mui/icons-material/SmartButtonOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import {
@@ -71,6 +72,10 @@ const navItems = [
   {
     text: "Admin",
     icon: <AdminPanelSettingsOutlined />,
+  },
+  {
+    text: "Technology Stacks",
+    icon: <SmartButtonOutlinedIcon />,
   },
 ];
 

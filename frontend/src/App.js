@@ -17,6 +17,7 @@ import ManageMember from "scenes/manageMembers";
 import ManageProjectData from "scenes/manage-projects";
 import ManageEventData from "scenes/manage-event";
 import MemberRequests from "scenes/memberRequests";
+import TechnoPage from "scenes/TechnoPage";
 function App() {
   const [theme, colorMode] = useMode();
 
@@ -29,6 +30,7 @@ function App() {
   const manageProjectData = "/Manage Projects";
   const manageEventData = "/Manage Events";
   const memberRequests = "/Member Requests";
+  const techPage = "/Technology Stacks";
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
@@ -56,6 +58,7 @@ function App() {
                   path={becomeaMember.toLowerCase()}
                   element={<BecomeMember />}
                 />
+                <Route path={techPage.toLowerCase()} element={<TechnoPage />} />
               </Route>
               <Route element={<AdminLayout />}>
                 <Route path={"/admin-controls"} element={<AdminControls />} />

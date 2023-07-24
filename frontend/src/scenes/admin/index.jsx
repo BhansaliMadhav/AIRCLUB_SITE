@@ -25,7 +25,10 @@ const Admin = () => {
       process.env.REACT_APP_BASE_URL + "/api/login",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+        },
 
         body: JSON.stringify({
           userId,

@@ -18,6 +18,7 @@ const AdminLayout = () => {
     >
       {isNonMobile ? <SidebarAdmin /> : <SidebarAdminMobile />}
       <Outlet />
+      <Footer />
     </Box>
   );
 };

@@ -45,7 +45,10 @@ const BecomeMember = () => {
       process.env.REACT_APP_BASE_URL + "/member/becomeMember",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_UserApiKey}`,
+        },
 
         body: JSON.stringify({
           firstName,

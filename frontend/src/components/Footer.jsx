@@ -12,7 +12,11 @@ const Footer = () => {
       textAlign="center"
       borderTop={`1px solid ${theme.palette.divider}`}
       backgroundColor={theme.palette.background.paper}
-      mt="auto" // Set margin-top to auto to push the footer to the bottom
+      position="sticky"
+      left={0}
+      bottom={0}
+      width="100%"
+      zIndex={1}
     >
       <Typography variant="body2" color={theme.palette.text.secondary}>
         This awesome website was made by{" "}
@@ -36,9 +40,10 @@ const Footer = () => {
             target="_blank"
             rel="noopener noreferrer"
             color={theme.palette.secondary.main}
-            sx={{ fontWeight: "bold", textTransform: "none" }}
           >
-            Madhav Bhansali (Reg-No: 9211214)
+            <Typography sx={{ fontWeight: "bold", textTransform: "none" }}>
+              Madhav Bhansali (Reg-No: 9211214)
+            </Typography>
           </Link>
           <LinkedInIcon sx={{ mt: "1px", fontSize: "1rem" }} />
         </Box>
