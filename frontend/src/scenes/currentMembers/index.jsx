@@ -45,6 +45,14 @@ const Request = ({
       return null;
     }
   };
+  const getThumbnailUrl = (photoLink) => {
+    const fileId = extractIdFromLink(photoLink);
+    if (fileId) {
+      return `https://drive.google.com/thumbnail?id=${fileId}`;
+    } else {
+      return undefined;
+    }
+  };
   return (
     <Card
       sx={{
@@ -59,12 +67,7 @@ const Request = ({
             <CardMedia
               sx={{ height: "25vh", width: "100%" }}
               component={"img"}
-              image={
-                extractIdFromLink(photo)
-                  ? "https://drive.google.com/uc?export=view&id=" +
-                    extractIdFromLink(photo)
-                  : undefined
-              }
+              image={getThumbnailUrl(photo)}
             />
           </CardContent>
           <CardContent>
@@ -119,12 +122,7 @@ const Request = ({
           <CardMedia
             sx={{ width: "100%" }}
             component={"img"}
-            image={
-              extractIdFromLink(photo)
-                ? "https://drive.google.com/uc?export=view&id=" +
-                  extractIdFromLink(photo)
-                : undefined
-            }
+            image={getThumbnailUrl(photo)}
           />
 
           <Typography

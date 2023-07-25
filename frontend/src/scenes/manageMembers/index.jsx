@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import { useGetNewDataQuery } from "state/api";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import {
   Box,
   InputLabel,
@@ -91,6 +93,8 @@ const ManageMember = () => {
   const [unit, setUnit] = useState("ADD");
   const [selectedMemberId, setSelectedMemberId] = useState("");
   const { data, isLoading } = useGetNewDataQuery();
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [copiedText, setCopiedText] = useState("");
   // console.log(data);
   const handleChange = (event, newUnit) => {
     if (newUnit !== null) {
@@ -143,6 +147,18 @@ const ManageMember = () => {
     }
     window.location.reload();
   }
+  const handleCopyClick = (event) => {
+    const idToCopy = event.value;
+
+    navigator.clipboard.writeText(idToCopy);
+
+    setCopiedText(idToCopy);
+
+    setIsSnackbarOpen(true);
+    setTimeout(() => {
+      setIsSnackbarOpen(false);
+    }, 3000);
+  };
 
   async function handleRemove(event) {
     event.preventDefault();
@@ -447,28 +463,30 @@ const ManageMember = () => {
               columns={columns}
               rows={data || []}
               getRowId={(row) => row._id}
+              onCellClick={(event) => {
+                handleCopyClick(event);
+              }}
               sx={{
+                cursor: "pointer",
                 "& .MuiDataGrid-root": {
                   border: "none",
                 },
                 "& .MuiDataGrid-cell": {
                   borderBottom: "none",
                 },
+                "& .name-column--cell": {
+                  color: colors.greenAccent[300],
+                },
                 "& .MuiDataGrid-columnHeaders": {
-                  backgroundColor: theme.palette.background.alt,
-                  color: colors.primary[100],
+                  backgroundColor: colors.blueAccent[700],
                   borderBottom: "none",
                 },
-                "& .MuiDataGrid-virtualScroller": {
-                  backgroundColor: colors.primary[500],
+                "& .MuiDataGrid-virturalScroller": {
+                  backgroundColor: colors.primary[400],
                 },
                 "& .MuiDataGrid-footerContainer": {
-                  backgroundColor: theme.palette.background.alt,
-                  color: colors.primary[100],
                   borderTop: "none",
-                },
-                "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-                  color: `${colors.primary[200]} !important`,
+                  backgroundColor: colors.blueAccent[700],
                 },
               }}
             />
@@ -477,6 +495,23 @@ const ManageMember = () => {
           ""
         )}
       </Box>
+      <Snackbar
+        open={isSnackbarOpen}
+        autoHideDuration={2000} // Adjust the time as needed (in milliseconds)
+        onClose={() => setIsSnackbarOpen(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        sx={{
+          transform: "translateY(-30px)",
+        }}
+      >
+        <Alert
+          onClose={() => setIsSnackbarOpen(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {`"${copiedText}" Copied!`}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

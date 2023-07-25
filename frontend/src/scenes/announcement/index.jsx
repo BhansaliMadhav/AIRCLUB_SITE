@@ -11,7 +11,7 @@ const Announcement = ({ _id, title, link }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
-  const isMobile = useMediaQuery("(max-width:686px)");
+  const isMobile = useMediaQuery("(max-width:1000px)");
   const secondisMobile = useMediaQuery("(max-width:1000px)");
   const { data, isLoading } = useGetAnnouncementsQuery();
 
@@ -68,8 +68,8 @@ const Announcement = ({ _id, title, link }) => {
               key={_id}
               sx={{
                 m: secondisMobile
-                  ? "2rem 0.5rem 2rem 0.5rem"
-                  : "2rem 5rem 2rem 5rem",
+                  ? "1rem 0.5rem 0rem 0.5rem"
+                  : "2rem 2rem 2rem 2rem",
                 fontSize: "2rem",
                 color: "black",
                 backgroundColor: theme.palette.background.alt2,
@@ -85,7 +85,10 @@ const Announcement = ({ _id, title, link }) => {
                 to={`${link}`}
                 variant="h3"
                 sx={{
-                  m: "2.25rem 0 1rem 2.25rem",
+                  m: secondisMobile
+                    ? "1rem 0.5rem 0rem 0.5rem"
+                    : "2.25rem 0 1rem 1.25rem",
+                  // m: "2.25rem 0 1rem 2.25rem",
                   color: theme.palette.text.alt3,
                   whiteSpace: "pre-wrap", // Allow text to wrap
                   wordBreak: "break-word", // Break words if they exceed the container width

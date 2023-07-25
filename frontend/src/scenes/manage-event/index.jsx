@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import {
   Box,
   Typography,
@@ -84,6 +86,8 @@ const ManageEventData = () => {
   const [eventDate, setEventDate] = useState(new Date());
   const [eventDescription, setEventDescription] = useState("");
   const [eventPhotos, setEventPhotos] = useState("");
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [copiedText, setCopiedText] = useState("");
   // console.log(eventDate.toString());
 
   const [_id, set_id] = useState("");
@@ -116,6 +120,19 @@ const ManageEventData = () => {
     }
     window.location.reload();
   }
+
+  const handleCopyClick = (event) => {
+    const idToCopy = event.value;
+
+    navigator.clipboard.writeText(idToCopy);
+
+    setCopiedText(idToCopy);
+
+    setIsSnackbarOpen(true);
+    setTimeout(() => {
+      setIsSnackbarOpen(false);
+    }, 3000);
+  };
 
   async function Remove(event) {
     event.preventDefault();
@@ -316,10 +333,11 @@ const ManageEventData = () => {
               rows={data || []}
               getRowId={(row) => row._id}
               onCellClick={(event) => {
-                navigator.clipboard.writeText(event.value);
+                handleCopyClick(event);
               }}
               disableSelectionOnClick
               sx={{
+                cursor: "pointer",
                 "& .MuiDataGrid-root": {
                   border: "none",
                 },
@@ -345,6 +363,23 @@ const ManageEventData = () => {
           </Box>
         ) : undefined}
       </Box>
+      <Snackbar
+        open={isSnackbarOpen}
+        autoHideDuration={2000} // Adjust the time as needed (in milliseconds)
+        onClose={() => setIsSnackbarOpen(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        sx={{
+          transform: "translateY(-30px)",
+        }}
+      >
+        <Alert
+          onClose={() => setIsSnackbarOpen(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {`"${copiedText}" Copied!`}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

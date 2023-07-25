@@ -167,7 +167,7 @@ export const themeSettings = (mode) => {
             },
             secondary: {
               main: colors.greenAccent[500],
-              alt: "#097458",
+              alt: "#372A00",
             },
             neutral: {
               dark: colors.grey[700],
@@ -176,12 +176,12 @@ export const themeSettings = (mode) => {
             },
             background: {
               default: "#E3E3E3",
-              alt: "#c0c7d4",
+              alt: "#EBEBEB",
               alt2: "#E3DED4",
             },
             text: {
-              default: "#0F0F0F",
-              alt: "#1E1E1E",
+              default: "#EDB600",
+              alt: "#6D5400",
             },
           }),
     },

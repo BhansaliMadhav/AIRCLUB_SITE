@@ -8,6 +8,8 @@ import HeaderNonMobile from "components/HeaderNonMobile";
 import { useGetAnnouncementsQuery } from "state/api";
 import { useNavigate } from "react-router-dom";
 import jwt from "jsonwebtoken";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 const columns = [
   {
@@ -64,6 +66,8 @@ const ManageAnnouncement = () => {
   const [link, setLink] = useState("");
   const [_id, set_id] = useState("");
   const { data, isLoading } = useGetAnnouncementsQuery();
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [copiedText, setCopiedText] = useState("");
 
   async function Add(event) {
     event.preventDefault();
@@ -91,6 +95,18 @@ const ManageAnnouncement = () => {
     }
     window.location.reload();
   }
+  const handleCopyClick = (event) => {
+    const idToCopy = event.value;
+
+    navigator.clipboard.writeText(idToCopy);
+
+    setCopiedText(idToCopy);
+
+    setIsSnackbarOpen(true);
+    setTimeout(() => {
+      setIsSnackbarOpen(false);
+    }, 3000);
+  };
 
   async function Remove(event) {
     event.preventDefault();
@@ -238,28 +254,30 @@ const ManageAnnouncement = () => {
               columns={columns}
               rows={data || []}
               getRowId={(row) => row._id}
+              onCellClick={(event) => {
+                handleCopyClick(event);
+              }}
               sx={{
+                cursor: "pointer",
                 "& .MuiDataGrid-root": {
                   border: "none",
                 },
                 "& .MuiDataGrid-cell": {
                   borderBottom: "none",
                 },
+                "& .name-column--cell": {
+                  color: colors.greenAccent[300],
+                },
                 "& .MuiDataGrid-columnHeaders": {
-                  backgroundColor: theme.palette.background.alt,
-                  color: colors.primary[100],
+                  backgroundColor: colors.blueAccent[700],
                   borderBottom: "none",
                 },
-                "& .MuiDataGrid-virtualScroller": {
-                  backgroundColor: colors.primary[500],
+                "& .MuiDataGrid-virturalScroller": {
+                  backgroundColor: colors.primary[400],
                 },
                 "& .MuiDataGrid-footerContainer": {
-                  backgroundColor: theme.palette.background.alt,
-                  color: colors.primary[100],
                   borderTop: "none",
-                },
-                "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-                  color: `${colors.primary[200]} !important`,
+                  backgroundColor: colors.blueAccent[700],
                 },
               }}
             />
@@ -268,6 +286,23 @@ const ManageAnnouncement = () => {
           ""
         )}
       </Box>
+      <Snackbar
+        open={isSnackbarOpen}
+        autoHideDuration={2000} // Adjust the time as needed (in milliseconds)
+        onClose={() => setIsSnackbarOpen(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        sx={{
+          transform: "translateY(-30px)",
+        }}
+      >
+        <Alert
+          onClose={() => setIsSnackbarOpen(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {`"${copiedText}" Copied!`}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

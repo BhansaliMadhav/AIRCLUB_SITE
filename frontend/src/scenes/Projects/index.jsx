@@ -46,9 +46,10 @@ const OngoingProjects = () => {
         <CardContent>
           <Typography
             sx={{
-              fontSize: "14",
+              fontSize: "18px",
               color: theme.palette.text.default,
               gutterBottom: true,
+              fontWeight: "600",
             }}
           >
             Project-Title: {Project_title}
@@ -60,8 +61,8 @@ const OngoingProjects = () => {
           <Typography variant="h5" fontWeight={"700"} color={colors.grey[200]}>
             {Current_fundings}
           </Typography>
-          <Typography color={colors.grey[200]} variant="h6">
-            {Project_contact_person}
+          <Typography color={colors.grey[200]} variant="h5">
+            Contact Person: {Project_contact_person}
           </Typography>
           <Typography variant="h5" fontWeight={"700"} color={colors.grey[200]}>
             {Current_status}

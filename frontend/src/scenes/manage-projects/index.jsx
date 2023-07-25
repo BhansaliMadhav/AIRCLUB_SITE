@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import {
   Box,
   InputLabel,
@@ -96,6 +98,8 @@ const ManageProjectData = () => {
   const [modifiedStatus, setModifiedStatus] = useState("");
   const [projectId, setProjectId] = useState("");
   const [selectedProject, setSelectedProject] = useState(null);
+  const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
+  const [copiedText, setCopiedText] = useState("");
 
   const [_id, set_id] = useState("");
   const { data, isLoading } = useGetProjectDataQuery();
@@ -128,6 +132,18 @@ const ManageProjectData = () => {
     }
     window.location.reload();
   }
+  const handleCopyClick = (event) => {
+    const idToCopy = event.value;
+
+    navigator.clipboard.writeText(idToCopy);
+
+    setCopiedText(idToCopy);
+
+    setIsSnackbarOpen(true);
+    setTimeout(() => {
+      setIsSnackbarOpen(false);
+    }, 3000);
+  };
 
   async function Remove(event) {
     event.preventDefault();
@@ -495,7 +511,11 @@ const ManageProjectData = () => {
               columns={columns}
               rows={data || []}
               getRowId={(row) => row._id}
+              onCellClick={(event) => {
+                handleCopyClick(event);
+              }}
               sx={{
+                cursor: "pointer",
                 "& .MuiDataGrid-root": {
                   border: "none",
                 },
@@ -521,6 +541,23 @@ const ManageProjectData = () => {
           </Box>
         )}
       </Box>
+      <Snackbar
+        open={isSnackbarOpen}
+        autoHideDuration={2000} // Adjust the time as needed (in milliseconds)
+        onClose={() => setIsSnackbarOpen(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+        sx={{
+          transform: "translateY(-30px)",
+        }}
+      >
+        <Alert
+          onClose={() => setIsSnackbarOpen(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {`"${copiedText}" Copied!`}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
