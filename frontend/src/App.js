@@ -18,11 +18,21 @@ import ManageProjectData from "scenes/manage-projects";
 import ManageEventData from "scenes/manage-event";
 import MemberRequests from "scenes/memberRequests";
 import TechnoPage from "scenes/TechnoPage";
+import { useEffect } from "react";
+import { ClientJS } from "clientjs";
+function MyComponent() {
+  useEffect(() => {
+    const client = new ClientJS();
+    const fingerprint = client.getFingerprint();
+    console.log("Fingerprint:", fingerprint);
+  }, []);
+}
+
 function App() {
   const [theme, colorMode] = useMode();
 
   const ongoingProjects = "/Projects"; // maine kiya hai dada
-
+  MyComponent();
   const currentMembers = "/Current Members";
   const becomeaMember = "/Become Member";
   const manageAnnouncements = "/Manage Announcement";

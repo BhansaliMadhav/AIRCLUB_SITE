@@ -5,7 +5,6 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 const Footer = () => {
   const theme = useTheme();
-
   return (
     <Box
       p={3}
