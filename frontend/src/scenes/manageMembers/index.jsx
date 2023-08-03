@@ -198,8 +198,8 @@ const ManageMember = () => {
           subTitle={"Fill out the form to Add a Member"}
         />
       )}
-      <Box mt={"3rem"}>
-        <form onSubmit={handleFormSubmit}>
+      <Box mt={"3rem"} justifyContent={"center"} display={"flex"}>
+        <form onSubmit={handleFormSubmit} style={{ width: "75%" }}>
           <Box width={"100%"} display={"flex"} justifyContent={"center"}>
             <ToggleButtonGroup
               color="secondary"
@@ -235,7 +235,8 @@ const ManageMember = () => {
           {unit === "ADD" ? (
             <Box
               display="grid"
-              gap="30px"
+              rowGap={"30px"}
+              columnGap={"5rem"}
               gridTemplateColumns="repeat(4, minmax(0, 1fr))"
               gridAutoRows={"50px"}
               mt={"60px"}
@@ -439,21 +440,23 @@ const ManageMember = () => {
             </Box>
           ) : undefined}
 
-          <Box display="flex" justifyContent="center" mt="20px">
-            {unit === "REMOVE" ? (
-              <Button
-                type="button"
-                color="secondary"
-                variant="contained"
-                onClick={handleRemove}
-              >
-                Remove Member
-              </Button>
-            ) : (
-              <Button type="submit" color="secondary" variant="contained">
-                Add New Member
-              </Button>
-            )}
+          <Box justifyContent={"center"} display="flex" mt="20px">
+            <Box width={"100%"} display="flex" justifyContent="end" mt="20px">
+              {unit === "REMOVE" ? (
+                <Button
+                  type="button"
+                  color="secondary"
+                  variant="contained"
+                  onClick={handleRemove}
+                >
+                  Remove Member
+                </Button>
+              ) : (
+                <Button type="submit" color="secondary" variant="contained">
+                  Add New Member
+                </Button>
+              )}
+            </Box>
           </Box>
         </form>
         {unit === "REMOVE" ? (

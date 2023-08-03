@@ -83,11 +83,12 @@ const BecomeMember = () => {
           subTitle={"Fill out the form to become a member"}
         />
       )}
-      <Box mt={"3rem"}>
-        <form onSubmit={handleFormSubmit}>
+      <Box mt={"3rem"} justifyContent={"center"} display={"flex"}>
+        <form onSubmit={handleFormSubmit} style={{ width: "75%" }}>
           <Box
             display="grid"
-            gap="30px"
+            rowGap={"30px"}
+            columnGap={"5rem"}
             gridTemplateColumns="repeat(4, minmax(0, 1fr))"
             sx={{
               "& > div": { gridColumn: !isMobile ? undefined : "span 4" },

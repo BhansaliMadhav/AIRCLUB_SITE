@@ -17,6 +17,7 @@ const Footer = () => {
       bottom={0}
       width="100%"
       zIndex={1}
+      sx={{ opacity: "80%" }}
     >
       <Typography variant="body2" color={theme.palette.text.secondary}>
         This awesome website was made by{" "}
