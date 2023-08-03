@@ -12,6 +12,15 @@ import HeaderMobile from "components-mobile/HeaderMobile";
 import HeaderNonMobile from "components/HeaderNonMobile";
 import Footer from "components/Footer";
 import { useNavigate } from "react-router-dom";
+import { ClientJS } from "clientjs";
+import { useEffect } from "react";
+function MyComponent() {
+  useEffect(() => {
+    const client = new ClientJS();
+    const fingerprint = client.getFingerprint();
+    console.log("Fingerprint:", fingerprint);
+  }, []);
+}
 const Admin = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -19,6 +28,7 @@ const Admin = () => {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  MyComponent();
   async function Login(event) {
     event.preventDefault();
     const response = await fetch(
