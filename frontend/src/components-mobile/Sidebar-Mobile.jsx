@@ -23,6 +23,7 @@ import {
   ChevronRightOutlined,
   ShoppingCartOutlined,
   AdminPanelSettingsOutlined,
+  HomeOutlined,
 } from "@mui/icons-material";
 import AnnouncementOutlinedIcon from "@mui/icons-material/AnnouncementOutlined";
 
@@ -34,6 +35,10 @@ import EventOutlinedIcon from "@mui/icons-material/EventOutlined";
 const drawerWidth = window.innerWidth;
 
 const navItems = [
+  {
+    text: "Home",
+    icon: <HomeOutlined />,
+  },
   {
     text: "Announcement",
     icon: <AnnouncementOutlinedIcon />,
