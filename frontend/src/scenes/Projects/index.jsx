@@ -17,32 +17,15 @@ import {
 import { tokens } from "theme";
 import { ImportantDevices } from "@mui/icons-material";
 import Zoom from "react-reveal/Zoom";
-const backgroundStyles = `
-  background: hsla(120, 6%, 90%, 1);
-  background: linear-gradient(
-    135deg,
-    hsla(120, 6%, 90%, 1) 0%,
-    hsla(228, 78%, 34%, 1) 50%,
-    hsla(220, 9%, 74%, 1) 100%
-  );
-  background: -moz-linear-gradient(
-    135deg,
-    hsla(120, 6%, 90%, 1) 0%,
-    hsla(228, 78%, 34%, 1) 50%,
-    hsla(220, 9%, 74%, 1) 100%
-  );
-  background: -webkit-linear-gradient(
-    135deg,
-    hsla(120, 6%, 90%, 1) 0%,
-    hsla(228, 78%, 34%, 1) 50%,
-    hsla(220, 9%, 74%, 1) 100%
-  );
-  filter: progid: DXImageTransform.Microsoft.gradient(
-    startColorstr="#E4E7E4",
-    endColorstr="#132E9A",
-    GradientType=1
-  );
-`;
+const backgroundStyles = `background: hsla(235, 68%, 22%, 1);
+
+background: linear-gradient(45deg, hsla(235, 68%, 22%, 1) 23%, hsla(236, 67%, 5%, 1) 47%, hsla(234, 69%, 28%, 1) 71%, hsla(0, 0%, 0%, 1) 94%);
+
+background: -moz-linear-gradient(45deg, hsla(235, 68%, 22%, 1) 23%, hsla(236, 67%, 5%, 1) 47%, hsla(234, 69%, 28%, 1) 71%, hsla(0, 0%, 0%, 1) 94%);
+
+background: -webkit-linear-gradient(45deg, hsla(235, 68%, 22%, 1) 23%, hsla(236, 67%, 5%, 1) 47%, hsla(234, 69%, 28%, 1) 71%, hsla(0, 0%, 0%, 1) 94%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#12195F", endColorstr="#040514", GradientType=1 )`;
 
 // You can use this backgroundStyles in your components
 

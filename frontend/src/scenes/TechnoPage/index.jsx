@@ -61,7 +61,7 @@ const TechnoPage = () => {
           mt={"2rem"}
           p={"1rem 0.7rem"}
           sx={{
-            backgroundColor: theme.palette.background.alt2,
+            background: "transparent",
             borderRadius: "10px",
           }}
         >

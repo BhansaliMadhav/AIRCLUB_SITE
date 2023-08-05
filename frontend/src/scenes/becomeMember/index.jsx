@@ -213,7 +213,16 @@ const BecomeMember = () => {
             )}
           </Box>
           <Box display="flex" justifyContent="end" mt="20px">
-            <Button type="submit" color="secondary" variant="contained">
+            <Button
+              type="submit"
+              color="secondary"
+              variant="contained"
+              style={{
+                background: "black", // Set the background color to black
+                color: "white", // Set the text color to white
+                border: "2px solid darkgreen", // Add a 2px solid green border
+              }}
+            >
               Create New User
             </Button>
           </Box>

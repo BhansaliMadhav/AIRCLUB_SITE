@@ -107,6 +107,17 @@ export const tokens = (mode) => ({
           800: "#f1b9b7",
           900: "#f8dcdb",
         },
+        green: {
+          100: "#ccffcc",
+          200: "#99ff99",
+          300: "#66ff66",
+          400: "#33ff33",
+          500: "#00ff00",
+          600: "#00cc00",
+          700: "#009900",
+          800: "#006600",
+          900: "#003300",
+        },
         blueAccent: {
           100: "#151632",
           200: "#2a2d64",
@@ -166,7 +177,7 @@ export const themeSettings = (mode) => {
             text: {
               default: colors.greenAccent[500],
               alt: "#D1D2D4",
-              alt2: "#FFA500",
+              alt2: "#00FF00",
               alt3: "#000000",
               alt4: "#FF0000",
             },

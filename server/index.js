@@ -184,7 +184,6 @@ app.post("/api/user", async (req, res) => {
     const userId = decoded.userId;
     const user = await User.findOne({
       userId: userId,
-      fingerprint: req.body.fingerprint,
     });
     if (user != {} || user != null) {
       return res.status(200);

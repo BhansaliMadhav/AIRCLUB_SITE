@@ -28,27 +28,33 @@
 }
 
 body {
-  background: hsla(121, 24%, 38%, 1);
+  background: hsla(128, 40%, 30%, 1);
 
   background: radial-gradient(
     circle,
-    rgb(67, 106, 67) 2%,
-    hsla(0, 0%, 0%, 1) 68%
+    hsla(128, 40%, 30%, 1) 0%,
+    hsla(0, 0%, 0%, 1) 40%,
+    hsla(128, 40%, 30%, 1) 75%,
+    hsla(0, 0%, 0%, 1) 100%
   );
 
   background: -moz-radial-gradient(
     circle,
-    rgb(67, 106, 67) 2%,
-    hsla(0, 0%, 0%, 1) 68%
+    hsla(128, 40%, 30%, 1) 0%,
+    hsla(0, 0%, 0%, 1) 40%,
+    hsla(128, 40%, 30%, 1) 75%,
+    hsla(0, 0%, 0%, 1) 100%
   );
 
   background: -webkit-radial-gradient(
     circle,
-    hsla(121, 24%, 38%, 1) 2%,
-    hsla(0, 0%, 0%, 1) 68%
+    hsla(128, 40%, 30%, 1) 0%,
+    hsla(0, 0%, 0%, 1) 40%,
+    hsla(128, 40%, 30%, 1) 75%,
+    hsla(0, 0%, 0%, 1) 100%
   );
 
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#4A784B", endColorstr="#000000", GradientType=1 );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#2D6A35", endColorstr="#000000", GradientType=1 );
 }
 
 html,

@@ -32,7 +32,7 @@ const Announcement = ({ _id, title, link }) => {
     <Box
       m={isMobile ? "2vh 5vw" : "1.5rem 2.5rem"}
       sx={{
-        color: theme.palette.background.main,
+        color: "#00FF00",
         background: theme.palette.background.main,
       }}
     >
@@ -51,7 +51,7 @@ const Announcement = ({ _id, title, link }) => {
         mt={"20px"}
         display={"grid"}
         gridTemplateColumns={
-          secondisMobile ? "1fr" : "repeat(auto-fit, minmax(350px, 1fr))" // Updated gridTemplateColumns
+          secondisMobile ? undefined : "repeat(2, 1fr)" // Corrected gridTemplateColumns for non-mobile (large screens)
         }
         justifyContent={"center"}
         rowGap={"20px"}
@@ -59,18 +59,13 @@ const Announcement = ({ _id, title, link }) => {
         width={"100%"}
         sx={{
           "& > div": {
-            gridColumn: "span 1", // Each box occupies a single column
-            [theme.breakpoints.up("md")]: {
-              gridColumn: "span 2", // On medium screens and above, each box occupies two columns
-            },
+            gridColumns: "span 2",
           },
         }}
       >
-        {showAnnouncements &&
-          items1.map(({ text, link, _id }, index) => (
-            <Fade key={_id} duration={3000} bottom>
-              {" "}
-              {/* Apply the Fade-in animation with a duration of 3 seconds */}
+        <Fade key={_id} duration={3000} bottom>
+          {showAnnouncements &&
+            items1.map(({ text, link, _id }, index) => (
               <Box
                 sx={{
                   m: secondisMobile
@@ -78,12 +73,11 @@ const Announcement = ({ _id, title, link }) => {
                     : "2rem 2rem 2rem 2rem",
                   fontSize: "4rem", // Doubled the font size
                   color: "black",
-                  backgroundColor: theme.palette.background.alt2,
+                  backgroundColor: "#32C61E",
                   borderRadius: "8px",
                   padding: "1rem",
                   textAlign: "justify",
-                  border: `2px solid ${"#398285"}`,
-                  boxShadow: `0px 0px 20px ${colors.greenAccent[500]}`,
+                  boxShadow: `0px 0px 20px #000000`,
                   display: "flex", // Align text vertically
                   alignItems: "center", // Center text vertically
                   justifyContent: "center", // Center text horizontally
@@ -108,7 +102,7 @@ const Announcement = ({ _id, title, link }) => {
                 >
                   <Typography
                     style={{
-                      color: theme.palette.secondary.alt,
+                      color: "#FFFFFF",
                       fontFamily: "Arial",
                       fontWeight: 600,
                       fontSize: "20px",
@@ -119,8 +113,8 @@ const Announcement = ({ _id, title, link }) => {
                   </Typography>
                 </Link>
               </Box>
-            </Fade>
-          ))}
+            ))}
+        </Fade>
       </Box>
     </Box>
   );

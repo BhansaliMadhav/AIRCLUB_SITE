@@ -18,6 +18,7 @@ import ManageProjectData from "scenes/manage-projects";
 import ManageEventData from "scenes/manage-event";
 import MemberRequests from "scenes/memberRequests";
 import TechnoPage from "scenes/TechnoPage";
+import Home from "scenes/home";
 import { useEffect } from "react";
 import { ClientJS } from "clientjs";
 function MyComponent() {
@@ -33,6 +34,7 @@ function App() {
 
   const ongoingProjects = "/Projects"; // maine kiya hai dada
   MyComponent();
+  const home = "/Home";
   const currentMembers = "/Current Members";
   const becomeaMember = "/Become Member";
   const manageAnnouncements = "/Manage Announcement";
@@ -49,10 +51,8 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route element={<Layout />}>
-                <Route
-                  path="/"
-                  element={<Navigate to={"/announcement"} replace />}
-                />
+                <Route path="/" element={<Navigate to={"/home"} replace />} />
+                <Route path={"/home"} element={<Home />} />
                 <Route path="/announcement" element={<Announcement />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/events" element={<Events />} />
