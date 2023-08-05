@@ -2,11 +2,9 @@ import * as React from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import Drawer from "@mui/material/Drawer";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import CssBaseline from "@mui/material/CssBaseline";
-import {
-  ChevronRightOutlined,
-  ShoppingCartOutlined,
-} from "@mui/icons-material";
+import { ShoppingCartOutlined } from "@mui/icons-material";
 import List from "@mui/material/List";
 
 import IconButton from "@mui/material/IconButton";
@@ -187,7 +185,7 @@ export default function SidebarAdmin() {
                     primary={text}
                   />
                   {active === lcText && (
-                    <ChevronRightOutlined sx={{ ml: "auto" }} />
+                    <MenuOutlinedIcon sx={{ ml: "auto" }} />
                   )}
                 </ListItemButton>
               </ListItem>

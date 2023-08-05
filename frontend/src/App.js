@@ -1,6 +1,6 @@
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Navigate } from "react-router-dom";
 import Announcement from "scenes/announcement";
 import Events from "scenes/events";

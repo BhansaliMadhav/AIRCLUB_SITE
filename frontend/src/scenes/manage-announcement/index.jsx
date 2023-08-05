@@ -10,7 +10,15 @@ import { useNavigate } from "react-router-dom";
 import jwt from "jsonwebtoken";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-
+import { ClientJS } from "clientjs";
+let fingerprint = "";
+function MyComponent() {
+  useEffect(() => {
+    const client = new ClientJS();
+    fingerprint = client.getFingerprint();
+    console.log("Fingerprint from admin control  page", fingerprint);
+  }, []);
+}
 const columns = [
   {
     field: "_id",
@@ -32,7 +40,7 @@ const columns = [
 const ManageAnnouncement = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-
+  MyComponent();
   async function populateQuote() {
     const req = await fetch(process.env.REACT_APP_BASE_URL + "/api/quote", {
       headers: {
@@ -46,18 +54,42 @@ const ManageAnnouncement = () => {
       alert(data.error);
     }
   }
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const user = jwt.decode(token);
-      if (!user) {
-        localStorage.removeItem("token");
-        navigate("/admin");
-      } else {
-        populateQuote();
-      }
-    } else {
+  async function checkFingerPrint() {
+    const req = await fetch(process.env.REACT_APP_BASE_URL + "/api/user", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("token"),
+        Authorization: `${process.env.REACT_APP_AdminApiKey}`,
+      },
+      body: JSON.stringify({
+        fingerprint: fingerprint,
+      }),
+    });
+    const data = await req.json();
+    if (data.status === 400) {
+      localStorage.removeItem("token");
       navigate("/admin");
+    } else {
+      return true;
+    }
+  }
+  useEffect(() => {
+    const isOk = checkFingerPrint();
+    if (isOk) {
+      console.log("Success Verifying Fingerprint");
+      const token = localStorage.getItem("token");
+      if (token) {
+        const user = jwt.decode(token);
+        if (!user) {
+          localStorage.removeItem("token");
+          navigate("/admin");
+        } else {
+          populateQuote();
+        }
+      } else {
+        navigate("/admin");
+      }
     }
   });
   const colors = tokens(theme.palette.mode);

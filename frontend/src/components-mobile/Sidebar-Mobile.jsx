@@ -11,6 +11,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -123,7 +124,7 @@ export default function SidebarMobile() {
         columnGap={"75vw"}
       >
         <IconButton onClick={handleDrawerOpen} sx={{ ml: "0.5rem" }}>
-          <ChevronRightIcon sx={{ fontSize: "25px" }} />
+          <MenuOutlinedIcon sx={{ fontSize: "25px" }} />
         </IconButton>
         <IconButton onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
@@ -152,7 +153,7 @@ export default function SidebarMobile() {
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon sx={{ fontSize: "25px" }} />
             ) : (
-              <ChevronRightIcon sx={{ fontSize: "25px" }} />
+              <MenuOutlinedIcon sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
         </DrawerHeader>

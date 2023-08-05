@@ -16,7 +16,6 @@ const LayoutAdmin = () => {
       display={isNonMobile ? "block" : "block"}
       width={"100%"}
       height={"100%"}
-      sx={{ backgroundColor: theme.palette.background.default }}
     >
       {isNonMobile ? <SidebarAdmin /> : <SidebarAdminMobile />}
 

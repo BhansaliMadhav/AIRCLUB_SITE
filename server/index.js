@@ -98,6 +98,10 @@ app.post("/api/login", async (req, res) => {
         },
         "secret123"
       );
+      await User.findOneAndUpdate(
+        { userId: user.userId },
+        { $set: { fingerprint: req.body.fingerprint } }
+      );
       res.status(200).json({ user: token });
     } else {
       res.status(404).json({ user: false });
@@ -170,5 +174,25 @@ app.post("/announcement/remove", async (req, res) => {
     }
   } else {
     res.status(401).json({ message: "UnAuthorised Message" });
+  }
+});
+
+app.post("/api/user", async (req, res) => {
+  const token = req.headers["x-access-token"];
+  try {
+    const decoded = jwt.verify(token, "secret123");
+    const userId = decoded.userId;
+    const user = await User.findOne({
+      userId: userId,
+      fingerprint: req.body.fingerprint,
+    });
+    if (user != {} || user != null) {
+      return res.status(200);
+    } else {
+      res.status(401);
+    }
+  } catch (error) {
+    res.status(401).json({ message: "error", error: "invalid token" });
+    console.log(error);
   }
 });

@@ -20,6 +20,18 @@ import {
 
 import HeaderMobile from "components-mobile/HeaderMobile";
 import HeaderNonMobile from "components/HeaderNonMobile";
+const backgroundStyles = `
+  background: hsla(0, 0%, 0%, 1);
+
+background: linear-gradient(135deg, hsla(0, 0%, 0%, 1) 20%, hsla(0, 0%, 0%, 1) 20%, hsla(128, 42%, 31%, 1) 72%);
+
+background: -moz-linear-gradient(135deg, hsla(0, 0%, 0%, 1) 20%, hsla(0, 0%, 0%, 1) 20%, hsla(128, 42%, 31%, 1) 72%);
+
+background: -webkit-linear-gradient(135deg, hsla(0, 0%, 0%, 1) 20%, hsla(0, 0%, 0%, 1) 20%, hsla(128, 42%, 31%, 1) 72%);
+
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#000000", endColorstr="#000000", GradientType=1 )`;
+
+// You can use this backgroundStyles in your components
 
 const Request = ({
   _id,
@@ -56,8 +68,7 @@ const Request = ({
   return (
     <Card
       sx={{
-        backgroundImage: "none",
-        backgroundColor: theme.palette.background.alt,
+        backgroundColor: backgroundStyles,
         borderRadius: "0.55rem",
       }}
     >

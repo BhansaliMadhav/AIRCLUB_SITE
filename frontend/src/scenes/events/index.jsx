@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { tokens } from "theme";
 import { Link } from "react-router-dom";
+import { Slide, Bounce, Zoom } from "react-reveal";
 
 import HeaderMobile from "components-mobile/HeaderMobile";
 import HeaderNonMobile from "components/HeaderNonMobile";
@@ -51,9 +52,25 @@ const Events = () => {
   }, []);
 
   return (
-    <Box m={isMobile ? "2vh 5vw" : "1.5rem 2.5rem"} className="events-tab">
+    <Box m={isMobile ? "2vh 5vw" : "1.5rem 2.5rem"} width={"100%"}>
+      {isMobile ? (
+        <HeaderMobile title={"Events"} subTitle={"Recent Events"} />
+      ) : (
+        <HeaderNonMobile title={"Events"} subTitle={"Recent Events"} />
+      )}
       {/* Header component... */}
-      <Box display="flex" flexDirection="column" gap={theme.spacing(2)}>
+      <Box
+        mt={"20px"}
+        display={"grid"}
+        gridTemplateColumns={isMobile ? "1fr" : "repeat(2, minmax(300px, 1fr))"}
+        justifyContent={"space-between"}
+        width={"100%"}
+        sx={{
+          "& > div": {
+            gridColumn: !isMobile ? undefined : "span 2",
+          },
+        }}
+      >
         {data &&
           data.map(
             ({
@@ -67,89 +84,52 @@ const Events = () => {
               const isAccordionExpanded = expandedAccordions.includes(_id);
 
               return (
-                <Accordion
-                  key={_id}
-                  expanded={isAccordionExpanded}
-                  onChange={() => handleAccordionToggle(_id)}
-                  style={{
-                    marginBottom: theme.spacing(2),
-                    backgroundColor: theme.palette.primary.alt2,
-                    color: "black",
-                  }}
-                >
-                  <AccordionSummary
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      gap: theme.spacing(1),
-                      fontWeight: "bold",
-                      position: "relative",
-                    }}
-                  >
-                    <div style={{ textAlign: "left" }}>
-                      <Typography
-                        textAlign={"left"}
-                        variant="h4"
-                        style={{ flex: "1" }}
-                      >
-                        {Event_title}
-                      </Typography>
-                    </div>
-                    <div
-                      style={{
-                        position: "absolute",
-                        top: "50%",
-                        right: theme.spacing(2),
-                        transform: `translateY(-50%) rotate(${
-                          isAccordionExpanded ? "180deg" : "0"
-                        })`,
-                        transition: "transform 0.3s",
-                      }}
+                <Slide key={_id} bottom duration={1000}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <Box
+                      component="div"
+                      p={12}
+                      border-radius="20px"
+                      background={`hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(120, 24%, 38%, 1) 40%, hsla(120, 24%, 19%, 1) 92%)`}
+                      borderRadius={12}
+                      boxShadow={5}
+                      style={{ margin: " 20px" }}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M7 10l5 5 5-5z" />
-                      </svg>
-                    </div>
-                  </AccordionSummary>
-                  <AccordionDetails
-                    style={{
-                      display: "grid",
-                      gridTemplateColumns: "40% 60%",
-                      gap: theme.spacing(2),
-                    }}
-                  >
-                    <div>
-                      <Typography>EVENT DATE: {Event_date}</Typography>
-                      <Typography textAlign={"left"}>
-                        {Event_description}
-                      </Typography>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
+                      <Bounce left>
+                        <Typography
+                          fontSize={"40px"}
+                          gutterBottom
+                          style={{
+                            color: "#1CCECE",
+                            marginBottom: "10px",
+                          }}
+                        >
+                          {Event_title}
+                        </Typography>
+                      </Bounce>
+                      <Zoom>
+                        <Typography
+                          fontSize={"25px"}
+                          style={{ color: "#BFDA0D" }}
+                        >
+                          {Event_date}
+                        </Typography>
+                      </Zoom>
                       <img
                         src={`https://drive.google.com/thumbnail?id=${driveId}`}
                         alt="Event"
                         style={{
-                          marginTop: "5%",
-                          marginRight: "3%",
-                          marginLeft: "3%",
-                          marginBottom: "5%",
+                          width: "100%",
+                          borderRadius: "30%",
+                          marginTop: "10px",
                         }}
                       />
-                    </div>
-                  </AccordionDetails>
-                </Accordion>
+                      <Typography variant="h2" style={{ color: "#f7f7f7" }}>
+                        {Event_description}
+                      </Typography>
+                    </Box>
+                  </div>
+                </Slide>
               );
             }
           )}

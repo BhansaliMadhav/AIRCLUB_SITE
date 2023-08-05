@@ -11,6 +11,10 @@ const User = new mongoose.Schema(
       required: true,
     },
     quote: { type: String },
+    fingerprint: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true, collection: "user-data" }
 );

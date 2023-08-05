@@ -14,11 +14,12 @@ import Footer from "components/Footer";
 import { useNavigate } from "react-router-dom";
 import { ClientJS } from "clientjs";
 import { useEffect } from "react";
+let fingerprint = "";
 function MyComponent() {
   useEffect(() => {
     const client = new ClientJS();
-    const fingerprint = client.getFingerprint();
-    console.log("Fingerprint:", fingerprint);
+    fingerprint = client.getFingerprint();
+    console.log("Fingerprint from admin login page", fingerprint);
   }, []);
 }
 const Admin = () => {
@@ -43,6 +44,7 @@ const Admin = () => {
         body: JSON.stringify({
           userId,
           password,
+          fingerprint,
         }),
       }
     );

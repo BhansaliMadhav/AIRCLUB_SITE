@@ -3,9 +3,19 @@ import jwt from "jsonwebtoken";
 import { useNavigate } from "react-router-dom";
 import { Box } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
-import Footer from "components/Footer";
+import { ClientJS } from "clientjs";
+let fingerprint = "";
+function MyComponent() {
+  useEffect(() => {
+    const client = new ClientJS();
+    fingerprint = client.getFingerprint();
+    console.log("Fingerprint from admin control  page", fingerprint);
+  }, []);
+}
+
 const AdminControls = () => {
   const navigate = useNavigate();
+  MyComponent();
   const [quote, setQuote] = useState("");
   const [tempQuote, setTempQuote] = useState("");
   async function populateQuote() {
@@ -15,7 +25,6 @@ const AdminControls = () => {
       },
     });
     const data = await req.json();
-    console.log("data", data);
     if (data.status === "ok") {
       setQuote(data.quote);
     } else {

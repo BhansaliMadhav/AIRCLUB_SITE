@@ -6,6 +6,7 @@ import HeaderNonMobile from "components/HeaderNonMobile";
 import { Link } from "react-router-dom";
 import { useGetAnnouncementsQuery } from "state/api";
 import { tokens } from "theme";
+import Fade from "react-reveal/Fade"; // Import the Fade animation component
 
 const Announcement = ({ _id, title, link }) => {
   const theme = useTheme();
@@ -50,69 +51,75 @@ const Announcement = ({ _id, title, link }) => {
         mt={"20px"}
         display={"grid"}
         gridTemplateColumns={
-          secondisMobile ? "1fr" : "repeat(4, minmax(300px, 1fr))"
+          secondisMobile ? "1fr" : "repeat(auto-fit, minmax(350px, 1fr))" // Updated gridTemplateColumns
         }
-        justifyContent={"space-between"}
+        justifyContent={"center"}
         rowGap={"20px"}
         columnGap={"1.33%"}
         width={"100%"}
         sx={{
           "& > div": {
-            gridColumn: !secondisMobile ? undefined : "span 2",
+            gridColumn: "span 1", // Each box occupies a single column
+            [theme.breakpoints.up("md")]: {
+              gridColumn: "span 2", // On medium screens and above, each box occupies two columns
+            },
           },
         }}
       >
         {showAnnouncements &&
           items1.map(({ text, link, _id }, index) => (
-            <Box
-              key={_id}
-              sx={{
-                m: secondisMobile
-                  ? "1rem 0.5rem 0rem 0.5rem"
-                  : "2rem 2rem 2rem 2rem",
-                fontSize: "2rem",
-                color: "black",
-                backgroundColor: theme.palette.background.alt2,
-                gridColumn: "span 2",
-                borderRadius: "8px",
-                padding: "1rem",
-                textAlign: "justify",
-                opacity: 0,
-                animation: `fadeIn 0.5s ease forwards ${index * 0.2}s`, // Apply fade-in animation
-              }}
-            >
-              <Link
-                to={`${link}`}
-                variant="h3"
+            <Fade key={_id} duration={3000} bottom>
+              {" "}
+              {/* Apply the Fade-in animation with a duration of 3 seconds */}
+              <Box
                 sx={{
                   m: secondisMobile
                     ? "1rem 0.5rem 0rem 0.5rem"
-                    : "2.25rem 0 1rem 1.25rem",
-                  // m: "2.25rem 0 1rem 2.25rem",
-                  color: theme.palette.text.alt3,
-                  whiteSpace: "pre-wrap", // Allow text to wrap
-                  wordBreak: "break-word", // Break words if they exceed the container width
-                }}
-                style={{
-                  cursor: "pointer",
-                  textDecoration: "none",
-
-                  fontStyle: "italic",
+                    : "2rem 2rem 2rem 2rem",
+                  fontSize: "4rem", // Doubled the font size
+                  color: "black",
+                  backgroundColor: theme.palette.background.alt2,
+                  borderRadius: "8px",
+                  padding: "1rem",
+                  textAlign: "justify",
+                  border: `2px solid ${"#398285"}`,
+                  boxShadow: `0px 0px 20px ${colors.greenAccent[500]}`,
+                  display: "flex", // Align text vertically
+                  alignItems: "center", // Center text vertically
+                  justifyContent: "center", // Center text horizontally
                 }}
               >
-                <Typography
+                <Link
+                  to={`${link}`}
+                  variant="h3"
+                  sx={{
+                    m: secondisMobile
+                      ? "1rem 0.5rem 0rem 0.5rem"
+                      : "2.25rem 0 1rem 1.25rem",
+                    color: theme.palette.text.alt3,
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                  }}
                   style={{
-                    color: theme.palette.secondary.alt,
-                    fontFamily: "Arial",
-                    fontWeight: 600,
-                    fontSize: "20px",
-                    wordWrap: "break-word",
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    fontStyle: "italic",
                   }}
                 >
-                  {text.length > 50 ? `${text.slice(0, 50)}...` : text}
-                </Typography>
-              </Link>
-            </Box>
+                  <Typography
+                    style={{
+                      color: theme.palette.secondary.alt,
+                      fontFamily: "Arial",
+                      fontWeight: 600,
+                      fontSize: "20px",
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    {text.length > 50 ? `${text.slice(0, 50)}...` : text}
+                  </Typography>
+                </Link>
+              </Box>
+            </Fade>
           ))}
       </Box>
     </Box>

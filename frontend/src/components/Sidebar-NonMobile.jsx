@@ -14,11 +14,12 @@ import IconButton from "@mui/material/IconButton";
 import SmartButtonOutlinedIcon from "@mui/icons-material/SmartButtonOutlined";
 
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 
 import { tokens } from "theme";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -123,7 +124,7 @@ export default function SidebarNonMobile() {
         width="100vw"
       >
         <IconButton sx={{ ml: "2rem" }} onClick={handleDrawerOpen}>
-          <ChevronRightIcon />
+          <MenuOutlinedIcon />
         </IconButton>
         <IconButton sx={{ ml: "90vw" }} onClick={colorMode.toggleColorMode}>
           {theme.palette.mode === "dark" ? (
@@ -152,7 +153,7 @@ export default function SidebarNonMobile() {
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
-              <ChevronRightIcon />
+              <MenuOutlinedIcon />
             )}
           </IconButton>
         </DrawerHeader>
