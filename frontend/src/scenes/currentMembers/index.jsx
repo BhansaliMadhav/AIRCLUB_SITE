@@ -10,6 +10,7 @@ import {
   CardMedia,
 } from "@mui/material";
 import { tokens } from "theme";
+import Fade from "react-reveal/Fade";
 import {
   useGetNewCoSecQuery,
   useGetNewExecutiveMemberQuery,
@@ -66,22 +67,77 @@ const Request = ({
     }
   };
   return (
-    <Card
-      sx={{
-        backgroundColor: backgroundStyles,
-        borderRadius: "0.55rem",
-      }}
-    >
-      {!isMobile ? (
-        <Box display={"flex"}>
-          <CardContent sx={{ width: "30%" }}>
+    <Fade>
+      <Card
+        sx={{
+          backgroundColor: backgroundStyles,
+          borderRadius: "0.55rem",
+        }}
+      >
+        {!isMobile ? (
+          <Box display={"flex"}>
+            <CardContent sx={{ width: "30%" }}>
+              <CardMedia
+                sx={{ height: "25vh", width: "100%" }}
+                component={"img"}
+                image={getThumbnailUrl(photo)}
+              />
+            </CardContent>
+            <CardContent>
+              <Typography
+                sx={{
+                  fontSize: "20px",
+                  color: theme.palette.text.default,
+                  gutterBottom: true,
+                }}
+              >
+                Position: {position}
+              </Typography>
+              <Typography variant="h2" component={"div"}>
+                {firstName.toUpperCase()} {lastName.toUpperCase()}
+              </Typography>
+
+              <Typography
+                variant="h4"
+                fontWeight={"700"}
+                color={colors.grey[200]}
+                mt={"0.5rem"}
+              >
+                {Department}
+              </Typography>
+
+              <Typography
+                color={colors.blueAccent[100]}
+                variant="h5"
+              ></Typography>
+              <Typography
+                color={colors.grey[200]}
+                variant="h6"
+                fontWeight={"700"}
+              ></Typography>
+              <Typography variant="h4" mt={"1rem"}>
+                {" "}
+                Field of Intrest:
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "20px",
+                  color: theme.palette.text.default,
+                  gutterBottom: true,
+                }}
+              >
+                {domain}
+              </Typography>
+            </CardContent>
+          </Box>
+        ) : (
+          <CardContent sx={{ width: "100%" }}>
             <CardMedia
-              sx={{ height: "25vh", width: "100%" }}
+              sx={{ width: "100%" }}
               component={"img"}
               image={getThumbnailUrl(photo)}
             />
-          </CardContent>
-          <CardContent>
+
             <Typography
               sx={{
                 fontSize: "20px",
@@ -127,59 +183,9 @@ const Request = ({
               {domain}
             </Typography>
           </CardContent>
-        </Box>
-      ) : (
-        <CardContent sx={{ width: "100%" }}>
-          <CardMedia
-            sx={{ width: "100%" }}
-            component={"img"}
-            image={getThumbnailUrl(photo)}
-          />
-
-          <Typography
-            sx={{
-              fontSize: "20px",
-              color: theme.palette.text.default,
-              gutterBottom: true,
-            }}
-          >
-            Position: {position}
-          </Typography>
-          <Typography variant="h2" component={"div"}>
-            {firstName.toUpperCase()} {lastName.toUpperCase()}
-          </Typography>
-
-          <Typography
-            variant="h4"
-            fontWeight={"700"}
-            color={colors.grey[200]}
-            mt={"0.5rem"}
-          >
-            {Department}
-          </Typography>
-
-          <Typography color={colors.blueAccent[100]} variant="h5"></Typography>
-          <Typography
-            color={colors.grey[200]}
-            variant="h6"
-            fontWeight={"700"}
-          ></Typography>
-          <Typography variant="h4" mt={"1rem"}>
-            {" "}
-            Field of Intrest:
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "20px",
-              color: theme.palette.text.default,
-              gutterBottom: true,
-            }}
-          >
-            {domain}
-          </Typography>
-        </CardContent>
-      )}
-    </Card>
+        )}
+      </Card>
+    </Fade>
   );
 };
 

@@ -16,7 +16,7 @@ import {
 } from "state/api";
 import { tokens } from "theme";
 import { ImportantDevices } from "@mui/icons-material";
-import Flash from "react-reveal/Flash";
+import Zoom from "react-reveal/Zoom";
 const backgroundStyles = `
   background: hsla(120, 6%, 90%, 1);
   background: linear-gradient(
@@ -66,7 +66,7 @@ const OngoingProjects = () => {
     const colors = tokens(theme.palette.mode);
 
     return (
-      <Flash duration={"2000"}>
+      <Zoom>
         <Card
           className="gradient-background"
           sx={{
@@ -118,7 +118,7 @@ const OngoingProjects = () => {
             </Typography>
           </CardContent>
         </Card>
-      </Flash>
+      </Zoom>
     );
   };
 
