@@ -40,7 +40,7 @@ const HeaderNonMobile = ({ title, subTitle }) => {
         </Typography>
       </Fade>
       <Fade bottom when={showHeader}>
-        <Typography fontSize={"30px"} color={theme.palette.text.alt2}>
+        <Typography fontSize={"30px"} color="#8FC82D">
           {subTitle}
         </Typography>
       </Fade>

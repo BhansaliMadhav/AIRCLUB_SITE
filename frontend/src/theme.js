@@ -177,7 +177,7 @@ export const themeSettings = (mode) => {
             text: {
               default: colors.greenAccent[500],
               alt: "#D1D2D4",
-              alt2: "#00FF00",
+              alt2: "#30430F",
               alt3: "#000000",
               alt4: "#FF0000",
             },

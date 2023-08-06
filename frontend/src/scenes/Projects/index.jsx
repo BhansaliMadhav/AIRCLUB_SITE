@@ -17,15 +17,27 @@ import {
 import { tokens } from "theme";
 import { ImportantDevices } from "@mui/icons-material";
 import Zoom from "react-reveal/Zoom";
-const backgroundStyles = `background: hsla(235, 68%, 22%, 1);
+const backgroundStyles = `background: hsla(82, 63%, 44%, 0.6);
 
-background: linear-gradient(45deg, hsla(235, 68%, 22%, 1) 23%, hsla(236, 67%, 5%, 1) 47%, hsla(234, 69%, 28%, 1) 71%, hsla(0, 0%, 0%, 1) 94%);
+background: radial-gradient(
+  circle,
+  hsla(82, 63%, 44%, 0.2) 0%,
+  hsla(0, 0%, 0%, 0.2) 42%
+);
 
-background: -moz-linear-gradient(45deg, hsla(235, 68%, 22%, 1) 23%, hsla(236, 67%, 5%, 1) 47%, hsla(234, 69%, 28%, 1) 71%, hsla(0, 0%, 0%, 1) 94%);
+background: -moz-radial-gradient(
+  circle,
+  hsla(82, 63%, 44%, 0.2) 0%,
+  hsla(0, 0%, 0%, 0.2) 42%
+);
 
-background: -webkit-linear-gradient(45deg, hsla(235, 68%, 22%, 1) 23%, hsla(236, 67%, 5%, 1) 47%, hsla(234, 69%, 28%, 1) 71%, hsla(0, 0%, 0%, 1) 94%);
+background: -webkit-radial-gradient(
+  circle,
+  hsla(82, 63%, 44%, 0.2) 0%,
+  hsla(0, 0%, 0%, 0.2) 42%
+);
 
-filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#12195F", endColorstr="#040514", GradientType=1 )`;
+filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#83B72A", endColorstr="#000000", GradientType=0.2 )`;
 
 // You can use this backgroundStyles in your components
 

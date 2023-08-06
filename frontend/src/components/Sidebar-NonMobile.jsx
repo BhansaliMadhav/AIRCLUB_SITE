@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
+import { Fade } from "react-reveal";
 
 import { AppBar, Toolbar, Typography } from "@mui/material";
 
@@ -47,46 +48,74 @@ export default function SidebarNonMobile() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="static" sx={{ background: "transparent" }}>
-        <Toolbar>
-          <Box columnGap={"15.5%"} display={"flex"}>
-            <Typography
-              mt={"1.175%"}
-              variant="h1"
-              fontWeight={"500"}
-              sx={{ flexGrow: 1 }}
+      <AppBar
+        position="sticky"
+        sx={{
+          background: "transparent",
+          flexDirection: "column", // Stack content vertically on smaller screens
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 1,
+          whiteSpace: "nowrap", // Prevent text from wrapping
+        }}
+      >
+        <Box width={"100%"}>
+          <Toolbar>
+            <Box
+              display={"flex"}
+              justifyContent={"space-between"}
+              width={"100vw"}
+              sx={{
+                // Add media queries to adjust the gap between items and font size based on screen width
+                "@media (max-width: 1024px)": {
+                  gap: "8%", // Reduce gap between items on smaller screens
+                },
+                "@media (max-width: 768px)": {
+                  gap: "5%", // Further reduce gap on even smaller screens
+                },
+              }}
             >
-              AI&R
-            </Typography>
-            {/* Display the navigation items in the AppBar */}
+              <Typography mt={"1.175%"} variant="h1" fontWeight={"500"}>
+                AI&R
+              </Typography>
 
-            {navItems.map(({ text, icon }) => {
-              const lcText = text.toLowerCase();
+              {navItems.map(({ text }) => {
+                const lcText = text.toLowerCase();
 
-              return (
-                <Box
-                  key={text}
-                  disablePadding
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    backgroundColor:
-                      active === lcText
-                        ? theme.palette.background.alt
-                        : "transparent",
-                  }}
-                  onClick={() => {
-                    navigate(`/${lcText}`);
-                  }}
-                >
-                  <Typography fontSize={"16px"} fontWeight={"600"}>
-                    {text}
-                  </Typography>
-                </Box>
-              );
-            })}
-          </Box>
-        </Toolbar>
+                return (
+                  <Box
+                    key={text}
+                    sx={{
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      backgroundColor:
+                        active === lcText
+                          ? theme.palette.background.alt
+                          : "transparent",
+                      transition: "color 0.3s", // Add transition for smooth color change
+                      "&:hover": {
+                        color: "black", // Change the text color on hover to black
+                        animation: "pulse 1s",
+                      },
+                    }}
+                    onClick={() => {
+                      navigate(`/${lcText}`);
+                    }}
+                  >
+                    <Typography
+                      fontSize={"1rem"}
+                      fontWeight={"600"}
+                      color="white"
+                    >
+                      {text}
+                    </Typography>
+                  </Box>
+                );
+              })}
+            </Box>
+          </Toolbar>
+        </Box>
       </AppBar>
     </React.Fragment>
   );

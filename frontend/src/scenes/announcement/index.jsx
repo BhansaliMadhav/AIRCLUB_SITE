@@ -32,7 +32,7 @@ const Announcement = ({ _id, title, link }) => {
     <Box
       m={isMobile ? "2vh 5vw" : "1.5rem 2.5rem"}
       sx={{
-        color: "#00FF00",
+        color: "#000000",
         background: theme.palette.background.main,
       }}
     >
@@ -73,11 +73,11 @@ const Announcement = ({ _id, title, link }) => {
                     : "2rem 2rem 2rem 2rem",
                   fontSize: "4rem", // Doubled the font size
                   color: "black",
-                  backgroundColor: "#32C61E",
+                  backgroundColor: "#000000",
                   borderRadius: "8px",
                   padding: "1rem",
                   textAlign: "justify",
-                  boxShadow: `0px 0px 20px #000000`,
+                  boxShadow: `0px 0px 20px #53741A`,
                   display: "flex", // Align text vertically
                   alignItems: "center", // Center text vertically
                   justifyContent: "center", // Center text horizontally

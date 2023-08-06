@@ -8,7 +8,7 @@ import { tokens } from "theme";
 import Footer from "components/Footer";
 
 const Layout = () => {
-  const isNonMobile = useMediaQuery("(min-width:768px)");
+  const isNonMobile = useMediaQuery("(min-width:1080px)");
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
