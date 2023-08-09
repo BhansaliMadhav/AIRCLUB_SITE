@@ -3,6 +3,11 @@ import { useTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { Box } from "@mui/material";
 import { Fade } from "react-reveal";
+import logo1 from "images/Logo1-removebg-preview.png";
+import logo2 from "images/LOGO_NEW_2-transformed.png";
+import logo3 from "images/logo_3-removebg-preview.png";
+import logo4 from "images/Logo_2-removebg-preview.png";
+import logo5 from "images/logo_4-removebg-preview.png";
 
 import { AppBar, Toolbar, Typography } from "@mui/material";
 
@@ -75,9 +80,21 @@ export default function SidebarNonMobile() {
                 },
               }}
             >
-              <Typography mt={"1.175%"} variant="h1" fontWeight={"500"}>
-                AI&R
-              </Typography>
+              {/* <img
+                src={logo4}
+                height={"110px"}
+                width={"210px"}
+                style={{ margin: "-20px -40px", cursor: "pointer" }}
+                alt=""
+                onClick={() => navigate("/")}
+              /> */}
+              <img
+                src={logo5}
+                height={"90px"}
+                width={"160px"}
+                style={{ margin: "0 -20px" }}
+                alt=""
+              />
 
               {navItems.map(({ text }) => {
                 const lcText = text.toLowerCase();
@@ -104,7 +121,7 @@ export default function SidebarNonMobile() {
                     }}
                   >
                     <Typography
-                      fontSize={"1rem"}
+                      fontSize={"1.2rem"}
                       fontWeight={"600"}
                       color="white"
                     >

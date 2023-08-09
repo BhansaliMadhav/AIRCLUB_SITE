@@ -7,13 +7,34 @@ import { Link } from "react-router-dom";
 import { useGetAnnouncementsQuery } from "state/api";
 import { tokens } from "theme";
 import { Avatar } from "@mui/material";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import MuiImageSlider from "mui-image-slider";
+
 import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom"; // Import the Fade animation component
 import image1 from "images/img1.jpg";
 import image2 from "images/img2 .jpg";
+import slideshow1 from "images/WhatsApp Image 2023-08-08 at 13.49.32 (1).jpeg";
+import slideshow2 from "images/WhatsApp Image 2023-08-08 at 13.49.32.jpeg";
+//import Slider from "@mui/lab/";
+
 const Home = ({ _id, title, link }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const slides = [slideshow1, slideshow2];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % slides.length);
+    }, 1000); // Change the interval time as needed (4000ms = 4 seconds)
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   const isMobile = useMediaQuery("(max-width:1000px)");
   const secondisMobile = useMediaQuery("(max-width:1000px)");
@@ -80,7 +101,13 @@ const Home = ({ _id, title, link }) => {
           }}
         />
       </Zoom>
-
+      <Carousel showThumbs={false} autoPlay infiniteLoop interval={4000}>
+        {slides.map((slide, index) => (
+          <div key={index}>
+            <img src={slide} alt={`Slide ${index + 1}`} />
+          </div>
+        ))}
+      </Carousel>
       <Fade bottom duration={1500}>
         <Box
           textAlign={"justify"}
@@ -92,7 +119,7 @@ const Home = ({ _id, title, link }) => {
           mt={"2%"}
           mb={"4%"}
           pt={"1.5%"}
-          pb={"4%"}
+          pb={!isMobile ? "4%" : "8%"}
           pl={"4%"}
           pr={"4%"}
         >
@@ -155,7 +182,7 @@ const Home = ({ _id, title, link }) => {
           mt={"2%"}
           mb={"4%"}
           pt={"1.5%"}
-          pb={"4%"}
+          pb={!isMobile ? "4%" : "8%"}
           pl={"4%"}
           pr={"4%"}
         >
