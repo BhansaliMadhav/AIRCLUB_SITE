@@ -15,7 +15,7 @@ import {
   useGetCompletedProjectDataQuery,
 } from "state/api";
 import { tokens } from "theme";
-import { ImportantDevices } from "@mui/icons-material";
+
 import Zoom from "react-reveal/Zoom";
 const backgroundStyles = `background: hsla(82, 63%, 44%, 0.6);
 
@@ -161,7 +161,7 @@ const OngoingProjects = () => {
               Current_status,
             }) => (
               <Request
-                key={`completed-${_id}`}
+                key={`${_id}`}
                 _id={_id}
                 Project_title={Project_title}
                 Current_fundings={Current_fundings}

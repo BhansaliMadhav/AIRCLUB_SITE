@@ -97,17 +97,20 @@ const Home = ({ _id, title, link }) => {
             width: isMobile ? "85%" : "60%", // To occupy half the space
             borderRadius: "10px", // To give it a circular shape
             border: "2px solid black", // To add a black border
-            boxShadow: "0 4px 8px darkgreen", // To add a box shadow with dark green color
+            boxShadow: "0 4px 8px darkgreen",
+          // To add a box shadow with dark green color
           }}
         />
       </Zoom>
+    <div  style={{width:"600px"}}>
       <Carousel showThumbs={false} autoPlay infiniteLoop interval={4000}>
         {slides.map((slide, index) => (
-          <div key={index}>
-            <img src={slide} alt={`Slide ${index + 1}`} />
+          <div key={index} >
+            <img src={slide} alt={`Slide ${index + 1}`} height={"500px"} width={"150px"}/>
           </div>
         ))}
-      </Carousel>
+        </Carousel>
+        </div>
       <Fade bottom duration={1500}>
         <Box
           textAlign={"justify"}
