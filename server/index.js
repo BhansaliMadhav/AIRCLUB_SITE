@@ -96,7 +96,7 @@ app.post("/api/login", async (req, res) => {
         {
           userId: user.userId,
         },
-        "secret123"
+        process.env.secret
       );
       await User.findOneAndUpdate(
         { userId: user.userId },
@@ -114,7 +114,7 @@ app.post("/api/login", async (req, res) => {
 app.get("/api/quote", async (req, res) => {
   const token = req.headers["x-access-token"];
   try {
-    const decoded = jwt.verify(token, "secret123");
+    const decoded = jwt.verify(token, process.env.secret);
     const userId = decoded.userId;
     const user = await User.findOne({ userId: userId });
     return res.json({ status: "ok", quote: user.quote });
@@ -126,7 +126,7 @@ app.get("/api/quote", async (req, res) => {
 app.post("/api/quote", async (req, res) => {
   const token = req.headers["x-access-token"];
   try {
-    const decoded = jwt.verify(token, "secret123");
+    const decoded = jwt.verify(token, process.env.secret);
     const userId = decoded.userId;
     await User.updateOne(
       { userId: userId },
@@ -180,7 +180,7 @@ app.post("/announcement/remove", async (req, res) => {
 app.post("/api/user", async (req, res) => {
   const token = req.headers["x-access-token"];
   try {
-    const decoded = jwt.verify(token, "secret123");
+    const decoded = jwt.verify(token, process.env.secret);
     const userId = decoded.userId;
     const user = await User.findOne({
       userId: userId,
