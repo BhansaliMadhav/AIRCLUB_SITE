@@ -48,8 +48,7 @@ const Home = ({ _id, title, link }) => {
       textAlign="center" // Center both horizontally and vertically
       m={isMobile ? "2vh 5vw" : "1.5rem 2.5rem"}
       sx={{
-        color: theme.palette.background.main,
-        background: theme.palette.background.main,
+        
       }}
     >
       {isMobile ? (
