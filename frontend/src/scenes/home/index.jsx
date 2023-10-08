@@ -47,10 +47,7 @@ const Home = ({ _id, title, link }) => {
       justifyContent="center"
       textAlign="center" // Center both horizontally and vertically
       m={isMobile ? "2vh 5vw" : "1.5rem 2.5rem"}
-      sx={{
-        color: theme.palette.background.main,
-        background: theme.palette.background.main,
-      }}
+      sx={{}}
     >
       {isMobile ? (
         <HeaderMobile
@@ -71,8 +68,8 @@ const Home = ({ _id, title, link }) => {
             <Typography
               fontSize={"110px"}
               fontWeight="bold"
-                fontFamily={"serif"}
-                fontStyle={"revert-layer"}
+              fontFamily={"serif"}
+              fontStyle={"revert-layer"}
             >
               AI & ROBOTICS CLUB
             </Typography>
@@ -98,10 +95,8 @@ const Home = ({ _id, title, link }) => {
           sx={{
             background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(196, 100%, 41%, 1) 40%, hsla(196, 100%, 21%, 1) 92%)`,
           }}
-          
           borderRadius={20}
           boxShadow="5px 4px 16px #18C9AC"
-
           mt={"2%"}
           mb={"4%"}
           pt={"1.5%"}
