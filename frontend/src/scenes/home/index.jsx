@@ -55,7 +55,7 @@ const Home = ({ _id, title, link }) => {
       {isMobile ? (
         <HeaderMobile
           title={
-            <Typography variant="h3" fontWeight="bold" colo>
+            <Typography variant="h3" fontWeight="bold">
               AI & ROBOTICS CLUB
             </Typography>
           }
@@ -69,9 +69,10 @@ const Home = ({ _id, title, link }) => {
         <HeaderNonMobile
           title={
             <Typography
-              fontSize={"90px"}
+              fontSize={"110px"}
               fontWeight="bold"
-              fontFamily={"serif"}
+                fontFamily={"serif"}
+                fontStyle={"revert-layer"}
             >
               AI & ROBOTICS CLUB
             </Typography>
@@ -87,22 +88,8 @@ const Home = ({ _id, title, link }) => {
           }
         />
       )}
-      <Zoom>
-        <img
-          src={image1}
-          alt="this is a robotic hand"
-          style={{
-            margin: "40px 10px 40px 10px",
-
-            width: isMobile ? "85%" : "60%", // To occupy half the space
-            borderRadius: "10px", // To give it a circular shape
-            border: "2px solid black", // To add a black border
-            boxShadow: "0 4px 8px darkgreen",
-          // To add a box shadow with dark green color
-          }}
-        />
-      </Zoom>
-    <div  style={{width:"600px"}}>
+      
+    <div  style={{width:"900px"}}>
       <Carousel showThumbs={false} autoPlay infiniteLoop interval={4000}>
         {slides.map((slide, index) => (
           <div key={index} >
@@ -115,10 +102,12 @@ const Home = ({ _id, title, link }) => {
         <Box
           textAlign={"justify"}
           sx={{
-            background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(120, 24%, 38%, 1) 40%, hsla(120, 24%, 19%, 1) 92%)`,
+            background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(196, 100%, 41%, 1) 40%, hsla(196, 100%, 21%, 1) 92%)`,
           }}
+          
           borderRadius={20}
-          boxShadow="5px 4px 16px green"
+          boxShadow="5px 4px 16px #18C9AC"
+
           mt={"2%"}
           mb={"4%"}
           pt={"1.5%"}
