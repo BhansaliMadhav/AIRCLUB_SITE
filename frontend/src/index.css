@@ -1,51 +1,59 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
 
 .gradient-background {
-  background: hsla(82, 63%, 44%, 1);
+  background: hsla(178, 82%, 36%, 1);
 
   background: linear-gradient(
     45deg,
-    hsla(82, 63%, 44%, 1) 15%,
-    hsla(0, 0%, 0%, 1) 68%
+    hsla(178, 82%, 36%, 1) 0%,
+    hsla(0, 0%, 0%, 1) 54%,
+    hsla(178, 64%, 41%, 1) 100%
   );
 
   background: -moz-linear-gradient(
     45deg,
-    hsla(82, 63%, 44%, 1) 15%,
-    hsla(0, 0%, 0%, 1) 68%
+    hsla(178, 82%, 36%, 1) 0%,
+    hsla(0, 0%, 0%, 1) 54%,
+    hsla(178, 64%, 41%, 1) 100%
   );
 
   background: -webkit-linear-gradient(
     45deg,
-    hsla(82, 63%, 44%, 1) 15%,
-    hsla(0, 0%, 0%, 1) 68%
+    hsla(178, 82%, 36%, 1) 0%,
+    hsla(0, 0%, 0%, 1) 54%,
+    hsla(178, 64%, 41%, 1) 100%
   );
 
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#83B72A", endColorstr="#000000", GradientType=1 );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#11A7A2", endColorstr="#000000", GradientType=1 );
 }
 
+
 body {
-  background: hsla(82, 63%, 44%, 0.6);
+  background: hsla(206, 67%, 24%, 1);
 
-  background: radial-gradient(
-    circle,
-    hsla(82, 63%, 44%, 0.6) 0%,
-    hsla(0, 0%, 0%, 0.6) 42%
+  background: linear-gradient(
+    45deg,
+    hsla(206, 67%, 24%, 1) 0%,
+    hsla(0, 0%, 0%, 1) 50%,
+    hsla(206, 67%, 24%, 1) 100%
   );
 
-  background: -moz-radial-gradient(
-    circle,
-    hsla(82, 63%, 44%, 0.6) 0%,
-    hsla(0, 0%, 0%, 0.6) 42%
+  background: -moz-linear-gradient(
+    45deg,
+    hsla(206, 67%, 24%, 1) 0%,
+    hsla(0, 0%, 0%, 1) 50%,
+    hsla(206, 67%, 24%, 1) 100%
   );
 
-  background: -webkit-radial-gradient(
-    circle,
-    hsla(82, 63%, 44%, 0.6) 0%,
-    hsla(0, 0%, 0%, 0.6) 42%
+  background: -webkit-linear-gradient(
+    45deg,
+    hsla(206, 67%, 24%, 1) 0%,
+    hsla(0, 0%, 0%, 1) 50%,
+    hsla(206, 67%, 24%, 1) 100%
   );
 
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#83B72A", endColorstr="#000000", GradientType=1 );
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#144265", endColorstr="#000000", GradientType=1 );
+
 }
 /* Custom CSS */
 @keyframes pulse {
