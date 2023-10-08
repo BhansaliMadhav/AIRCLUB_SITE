@@ -85,10 +85,8 @@ const Home = ({ _id, title, link }) => {
           }
         />
       )}
-      
-    <div  style={{width:"900px"}}>
-      
-        </div>
+
+      <div style={{ width: "900px" }}></div>
       <Fade bottom duration={1500}>
         <Box
           textAlign={"justify"}
