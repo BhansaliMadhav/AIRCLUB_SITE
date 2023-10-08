@@ -90,13 +90,7 @@ const Home = ({ _id, title, link }) => {
       )}
       
     <div  style={{width:"900px"}}>
-      <Carousel showThumbs={false} autoPlay infiniteLoop interval={4000}>
-        {slides.map((slide, index) => (
-          <div key={index} >
-            <img src={slide} alt={`Slide ${index + 1}`} height={"500px"} width={"150px"}/>
-          </div>
-        ))}
-        </Carousel>
+      
         </div>
       <Fade bottom duration={1500}>
         <Box
