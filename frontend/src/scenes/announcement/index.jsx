@@ -77,7 +77,7 @@ const Announcement = ({ _id, title, link }) => {
                   borderRadius: "8px",
                   padding: "1rem",
                   textAlign: "justify",
-                  boxShadow: `0px 0px 20px #53741A`,
+                  boxShadow: `0px 0px 20px #18C9AC`,
                   display: "flex", // Align text vertically
                   alignItems: "center", // Center text vertically
                   justifyContent: "center", // Center text horizontally
