@@ -95,11 +95,99 @@ const Home = ({ _id, title, link }) => {
               textAlign: "left",
             }}
           >
-            Differently
+            Realities
           </Typography>
         </div>
       </div>
-      <div style={{ width: "900px" }}></div>
+      <div style={{ display: "flex", width: "100%" }}>
+        <div style={{ marginRight: "5rem", marginLeft: "5rem" }}>
+          <Typography
+            sx={{
+              fontFamily: "Poppins",
+              fontSize: "40px",
+              fontWeight: "600",
+              marginTop: "30px",
+              textAlign: "left",
+              width: "250px",
+            }}
+          >
+            Recent Announcements
+          </Typography>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            width: "65%",
+            marginLeft: "40px",
+            overflowX: "auto",
+            marginRight: "0",
+          }}
+        >
+          {showAnnouncements &&
+            items1.map(({ text, link, _id }, index) => (
+              <Box
+                sx={{
+                  m: secondisMobile
+                    ? "1rem 0.5rem 0rem 0.5rem"
+                    : "2rem 2rem 2rem 2rem",
+                  fontSize: "4rem", // Doubled the font size
+                  color: "black",
+                  backgroundColor: "#000000",
+                  borderRadius: "8px",
+                  padding: "1rem",
+                  textAlign: "left",
+                  boxShadow: `0px 0px 7px #18C9AC`,
+                  display: "flex", // Align text vertically
+                  alignItems: "end", // Center text vertically
+                  justifyContent: "center", // Center text horizontally
+                  height: "7rem",
+                }}
+              >
+                <Link
+                  to={`${link}`}
+                  variant="h3"
+                  sx={{
+                    m: secondisMobile
+                      ? "1rem 0.5rem 0rem 0.5rem"
+                      : "2.25rem 0 1rem 1.25rem",
+                    color: theme.palette.text.alt3,
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    fontStyle: "italic",
+                    width: "15rem",
+                  }}
+                >
+                  <Typography
+                    style={{
+                      color: "#FFFFFF",
+                      fontFamily: "Arial",
+                      fontWeight: 600,
+                      fontSize: "20px",
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    {text.length > 50 ? `${text.slice(0, 50)}...` : text}
+                  </Typography>
+                  <Typography
+                    style={{
+                      color: "#FFFFFF",
+                      fontFamily: "Arial",
+                      fontWeight: 400,
+                      fontSize: "12px",
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    {text.length > 50 ? `${text.slice(0, 50)}...` : text}
+                  </Typography>
+                </Link>
+              </Box>
+            ))}
+        </div>
+      </div>
       <Fade bottom duration={1500}>
         <Box
           display={"flex"}
@@ -108,7 +196,6 @@ const Home = ({ _id, title, link }) => {
             background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(196, 100%, 41%, 1) 40%, hsla(196, 100%, 21%, 1) 92%)`,
           }}
           borderRadius={20}
-          boxShadow="5px 4px 16px #18C9AC"
           mt={"0%"}
           marginLeft={"20px"}
           marginRight={"20px"}
@@ -129,8 +216,6 @@ const Home = ({ _id, title, link }) => {
                   borderRadius: "10px",
                   marginRight: "110px",
                   // To give it a circular shape
-                  border: "2px solid black", // To add a black border
-                  boxShadow: "5px 4px 16px #18C9AC",
                   maxWidth: "400px",
                   minHeight: "450px", // To add a box shadow with dark green color
                 }}
@@ -162,81 +247,6 @@ const Home = ({ _id, title, link }) => {
           </div>
         </Box>
       </Fade>
-      <div style={{ display: "flex", gap: "20%" }}>
-        <div>
-          <Typography
-            sx={{
-              fontFamily: "Poppins",
-              fontSize: "40px",
-              fontWeight: "600",
-              marginTop: "30px",
-            }}
-          >
-            Recent Announcements
-          </Typography>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            width: "600px",
-            marginLeft: "40px",
-            overflowX: "auto",
-          }}
-        >
-          {showAnnouncements &&
-            items1.map(({ text, link, _id }, index) => (
-              <Box
-                sx={{
-                  m: secondisMobile
-                    ? "1rem 0.5rem 0rem 0.5rem"
-                    : "2rem 2rem 2rem 2rem",
-                  fontSize: "4rem", // Doubled the font size
-                  color: "black",
-                  backgroundColor: "#000000",
-                  borderRadius: "8px",
-                  padding: "1rem",
-                  textAlign: "justify",
-                  boxShadow: `0px 0px 20px #18C9AC`,
-                  display: "flex", // Align text vertically
-                  alignItems: "center", // Center text vertically
-                  justifyContent: "center", // Center text horizontally
-                }}
-              >
-                <Card sx={{ display: "flex" }}>
-                  <Link
-                    to={`${link}`}
-                    variant="h3"
-                    sx={{
-                      m: secondisMobile
-                        ? "1rem 0.5rem 0rem 0.5rem"
-                        : "2.25rem 0 1rem 1.25rem",
-                      color: theme.palette.text.alt3,
-                      whiteSpace: "pre-wrap",
-                      wordBreak: "break-word",
-                    }}
-                    style={{
-                      cursor: "pointer",
-                      textDecoration: "none",
-                      fontStyle: "italic",
-                    }}
-                  >
-                    <Typography
-                      style={{
-                        color: "#FFFFFF",
-                        fontFamily: "Arial",
-                        fontWeight: 600,
-                        fontSize: "20px",
-                        wordWrap: "break-word",
-                      }}
-                    >
-                      {text.length > 50 ? `${text.slice(0, 50)}...` : text}
-                    </Typography>
-                  </Link>
-                </Card>
-              </Box>
-            ))}
-        </div>
-      </div>
 
       <Zoom>
         <div style={{ marginLeft: "620px", width: "80%", height: "30%" }}>
@@ -276,8 +286,6 @@ const Home = ({ _id, title, link }) => {
             sx={{
               background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(120, 24%, 38%, 1) 40%, hsla(120, 24%, 19%, 1) 92%)`,
             }}
-            borderRadius={20}
-            boxShadow="5px 4px 16px #18C9AC"
             mt={"2%"}
             mb={"4%"}
             marginLeft={"20px"}
@@ -338,8 +346,7 @@ const Home = ({ _id, title, link }) => {
                     borderRadius: "10px",
                     marginRight: "110px",
                     // To give it a circular shape
-                    border: "2px solid black", // To add a black border
-                    boxShadow: "5px 4px 16px #18C9AC",
+
                     maxWidth: "400px",
                     minHeight: "450px", // To add a box shadow with dark green color
                   }}
