@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Box, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Card, useMediaQuery, useTheme } from "@mui/material";
 import { Typography } from "@mui/material";
+import { useGetAnnouncementsQuery } from "state/api";
 import Announcement from "../announcement";
 import HeaderMobile from "components-mobile/HeaderMobile";
 import HeaderNonMobile from "components/HeaderNonMobile";
@@ -29,7 +30,7 @@ import slideshow2 from "images/WhatsApp Image 2023-08-08 at 13.49.32.jpeg";
 const Home = ({ _id, title, link }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { data, isLoading } = useGetShortAnnouncementQuery();
+  const { data, isLoading } = useGetAnnouncementsQuery();
 
   const slides = [slideshow1, slideshow2];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -118,6 +119,25 @@ const Home = ({ _id, title, link }) => {
           pr={"4%"}
         >
           <div>
+            <Zoom>
+              <img
+                src={image3}
+                alt="this is a robotic hand"
+                style={{
+                  margin: "20px",
+                  // To occupy half the space
+                  borderRadius: "10px",
+                  marginRight: "110px",
+                  // To give it a circular shape
+                  border: "2px solid black", // To add a black border
+                  boxShadow: "5px 4px 16px #18C9AC",
+                  maxWidth: "400px",
+                  minHeight: "450px", // To add a box shadow with dark green color
+                }}
+              />
+            </Zoom>
+          </div>
+          <div>
             <Typography fontSize={"36px"} fontWeight="bold" mt={4}>
               Sriman Phani Krishna
             </Typography>
@@ -140,25 +160,6 @@ const Home = ({ _id, title, link }) => {
               outcomes and saving lives.
             </Typography>
           </div>
-
-          <div>
-            <Zoom>
-              <img
-                src={image3}
-                alt="this is a robotic hand"
-                style={{
-                  margin: "20px",
-                  // To occupy half the space
-                  borderRadius: "10px",
-                  marginLeft: "110px", // To give it a circular shape
-                  border: "2px solid black", // To add a black border
-                  boxShadow: "5px 4px 16px #18C9AC",
-                  maxWidth: "400px",
-                  minHeight: "450px", // To add a box shadow with dark green color
-                }}
-              />
-            </Zoom>
-          </div>
         </Box>
       </Fade>
       <div style={{ display: "flex", gap: "20%" }}>
@@ -174,7 +175,14 @@ const Home = ({ _id, title, link }) => {
             Recent Announcements
           </Typography>
         </div>
-        <div style={{ width: "600px", marginLeft: "40px" }}>
+        <div
+          style={{
+            display: "flex",
+            width: "600px",
+            marginLeft: "40px",
+            overflowX: "auto",
+          }}
+        >
           {showAnnouncements &&
             items1.map(({ text, link, _id }, index) => (
               <Box
@@ -194,35 +202,37 @@ const Home = ({ _id, title, link }) => {
                   justifyContent: "center", // Center text horizontally
                 }}
               >
-                <Link
-                  to={`${link}`}
-                  variant="h3"
-                  sx={{
-                    m: secondisMobile
-                      ? "1rem 0.5rem 0rem 0.5rem"
-                      : "2.25rem 0 1rem 1.25rem",
-                    color: theme.palette.text.alt3,
-                    whiteSpace: "pre-wrap",
-                    wordBreak: "break-word",
-                  }}
-                  style={{
-                    cursor: "pointer",
-                    textDecoration: "none",
-                    fontStyle: "italic",
-                  }}
-                >
-                  <Typography
+                <Card sx={{ display: "flex" }}>
+                  <Link
+                    to={`${link}`}
+                    variant="h3"
+                    sx={{
+                      m: secondisMobile
+                        ? "1rem 0.5rem 0rem 0.5rem"
+                        : "2.25rem 0 1rem 1.25rem",
+                      color: theme.palette.text.alt3,
+                      whiteSpace: "pre-wrap",
+                      wordBreak: "break-word",
+                    }}
                     style={{
-                      color: "#FFFFFF",
-                      fontFamily: "Arial",
-                      fontWeight: 600,
-                      fontSize: "20px",
-                      wordWrap: "break-word",
+                      cursor: "pointer",
+                      textDecoration: "none",
+                      fontStyle: "italic",
                     }}
                   >
-                    {text.length > 50 ? `${text.slice(0, 50)}...` : text}
-                  </Typography>
-                </Link>
+                    <Typography
+                      style={{
+                        color: "#FFFFFF",
+                        fontFamily: "Arial",
+                        fontWeight: 600,
+                        fontSize: "20px",
+                        wordWrap: "break-word",
+                      }}
+                    >
+                      {text.length > 50 ? `${text.slice(0, 50)}...` : text}
+                    </Typography>
+                  </Link>
+                </Card>
               </Box>
             ))}
         </div>
@@ -261,6 +271,7 @@ const Home = ({ _id, title, link }) => {
       <div>
         <Fade>
           <Box
+            display={"flex"}
             textAlign={"justify"}
             sx={{
               background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(120, 24%, 38%, 1) 40%, hsla(120, 24%, 19%, 1) 92%)`,
@@ -269,48 +280,72 @@ const Home = ({ _id, title, link }) => {
             boxShadow="5px 4px 16px #18C9AC"
             mt={"2%"}
             mb={"4%"}
+            marginLeft={"20px"}
+            marginRight={"20px"}
             pt={"1.5%"}
             pb={!isMobile ? "4%" : "8%"}
             pl={"4%"}
             pr={"4%"}
           >
-            <Typography fontSize={"36px"} fontWeight="bold" mt={4}>
-              Various New Technologies Used:
-            </Typography>
-            <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-              - Raspberry Pi: A small, affordable single-board computer that can
-              be used for a variety of projects, from home automation to
-              robotics.
-            </Typography>
-            <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-              - Arduino: An open-source electronics platform based on
-              easy-to-use hardware and software, often used for prototyping and
-              robotics projects.
-            </Typography>
-            <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-              - Machine Learning: A subset of AI that enables machines to learn
-              from data and make predictions or decisions based on that
-              learning.
-            </Typography>
-            <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-              - Computer Vision: The field of AI and computer science that
-              focuses on enabling computers to interpret and understand visual
-              information from the world.
-            </Typography>
-            <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-              - Natural Language Processing (NLP): An AI technology that enables
-              computers to understand, interpret, and generate human language.
-            </Typography>
-            <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-              - Robotics: The design, construction, operation, and use of robots
-              to automate tasks, perform complex actions, or interact with the
-              environment.
-            </Typography>
-            <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-              - Internet of Things (IoT): A network of interconnected devices
-              and objects that can collect and exchange data through the
-              internet.
-            </Typography>
+            <div>
+              <Typography fontSize={"36px"} fontWeight="bold" mt={4}>
+                Various New Technologies Used:
+              </Typography>
+              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
+                - Raspberry Pi: A small, affordable single-board computer that
+                can be used for a variety of projects, from home automation to
+                robotics.
+              </Typography>
+              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
+                - Arduino: An open-source electronics platform based on
+                easy-to-use hardware and software, often used for prototyping
+                and robotics projects.
+              </Typography>
+              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
+                - Machine Learning: A subset of AI that enables machines to
+                learn from data and make predictions or decisions based on that
+                learning.
+              </Typography>
+              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
+                - Computer Vision: The field of AI and computer science that
+                focuses on enabling computers to interpret and understand visual
+                information from the world.
+              </Typography>
+              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
+                - Natural Language Processing (NLP): An AI technology that
+                enables computers to understand, interpret, and generate human
+                language.
+              </Typography>
+              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
+                - Robotics: The design, construction, operation, and use of
+                robots to automate tasks, perform complex actions, or interact
+                with the environment.
+              </Typography>
+              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
+                - Internet of Things (IoT): A network of interconnected devices
+                and objects that can collect and exchange data through the
+                internet.
+              </Typography>
+            </div>
+            <div>
+              <Zoom>
+                <img
+                  src={image3}
+                  alt="this is a robotic hand"
+                  style={{
+                    margin: "20px",
+                    // To occupy half the space
+                    borderRadius: "10px",
+                    marginRight: "110px",
+                    // To give it a circular shape
+                    border: "2px solid black", // To add a black border
+                    boxShadow: "5px 4px 16px #18C9AC",
+                    maxWidth: "400px",
+                    minHeight: "450px", // To add a box shadow with dark green color
+                  }}
+                />
+              </Zoom>
+            </div>
           </Box>
           <Typography fontSize={"60px"} fontWeight="bold" mt={4}>
             About Us
