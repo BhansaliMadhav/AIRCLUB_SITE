@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { Typography } from "@mui/material";
+import Announcement from "../announcement";
 import HeaderMobile from "components-mobile/HeaderMobile";
 import HeaderNonMobile from "components/HeaderNonMobile";
-
-import { useGetAnnouncementsQuery } from "state/api";
+import { useGetShortAnnouncementQuery } from "state/api";
 import { tokens } from "theme";
 import { Avatar } from "@mui/material";
 import { Carousel } from "react-responsive-carousel";
@@ -29,7 +29,7 @@ import slideshow2 from "images/WhatsApp Image 2023-08-08 at 13.49.32.jpeg";
 const Home = ({ _id, title, link }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const { data, isLoading } = useGetAnnouncementsQuery();
+  const { data, isLoading } = useGetShortAnnouncementQuery();
 
   const slides = [slideshow1, slideshow2];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -47,11 +47,12 @@ const Home = ({ _id, title, link }) => {
       clearInterval(interval);
     };
   }, [data, isLoading]);
+
+  const isMobile = useMediaQuery("(max-width:1000px)");
+  const secondisMobile = useMediaQuery("(max-width:1000px)");
   const items1 = data
     ? data.map(({ title, link, _id }) => ({ text: title, link, _id }))
     : [];
-  const isMobile = useMediaQuery("(max-width:1000px)");
-  const secondisMobile = useMediaQuery("(max-width:1000px)");
 
   return (
     <Box
@@ -63,7 +64,7 @@ const Home = ({ _id, title, link }) => {
       m={isMobile ? "2vh 5vw" : "-5.75rem 0 0 0"}
     >
       <div style={{ padding: "0", margin: "0", width: "100%" }}>
-        <img src={makima} style={{ height: "800px", width: "100%" }} />
+        <img src={back} style={{ height: "800px", width: "100%" }} />
         <div
           style={{
             position: "absolute",
@@ -107,7 +108,9 @@ const Home = ({ _id, title, link }) => {
           }}
           borderRadius={20}
           boxShadow="5px 4px 16px #18C9AC"
-          mt={"2%"}
+          mt={"0%"}
+          marginLeft={"20px"}
+          marginRight={"20px"}
           mb={"4%"}
           pt={"1.5%"}
           pb={!isMobile ? "4%" : "8%"}
@@ -144,31 +147,97 @@ const Home = ({ _id, title, link }) => {
                 src={image3}
                 alt="this is a robotic hand"
                 style={{
-                  margin: "10px",
+                  margin: "20px",
                   // To occupy half the space
                   borderRadius: "10px",
-                  marginLeft: "100px", // To give it a circular shape
+                  marginLeft: "110px", // To give it a circular shape
                   border: "2px solid black", // To add a black border
                   boxShadow: "5px 4px 16px #18C9AC",
                   maxWidth: "400px",
-                  minHeight: "400px", // To add a box shadow with dark green color
+                  minHeight: "450px", // To add a box shadow with dark green color
                 }}
               />
             </Zoom>
           </div>
         </Box>
       </Fade>
+      <div style={{ display: "flex", gap: "20%" }}>
+        <div>
+          <Typography
+            sx={{
+              fontFamily: "Poppins",
+              fontSize: "40px",
+              fontWeight: "600",
+              marginTop: "30px",
+            }}
+          >
+            Recent Announcements
+          </Typography>
+        </div>
+        <div style={{ width: "600px", marginLeft: "40px" }}>
+          {showAnnouncements &&
+            items1.map(({ text, link, _id }, index) => (
+              <Box
+                sx={{
+                  m: secondisMobile
+                    ? "1rem 0.5rem 0rem 0.5rem"
+                    : "2rem 2rem 2rem 2rem",
+                  fontSize: "4rem", // Doubled the font size
+                  color: "black",
+                  backgroundColor: "#000000",
+                  borderRadius: "8px",
+                  padding: "1rem",
+                  textAlign: "justify",
+                  boxShadow: `0px 0px 20px #18C9AC`,
+                  display: "flex", // Align text vertically
+                  alignItems: "center", // Center text vertically
+                  justifyContent: "center", // Center text horizontally
+                }}
+              >
+                <Link
+                  to={`${link}`}
+                  variant="h3"
+                  sx={{
+                    m: secondisMobile
+                      ? "1rem 0.5rem 0rem 0.5rem"
+                      : "2.25rem 0 1rem 1.25rem",
+                    color: theme.palette.text.alt3,
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    fontStyle: "italic",
+                  }}
+                >
+                  <Typography
+                    style={{
+                      color: "#FFFFFF",
+                      fontFamily: "Arial",
+                      fontWeight: 600,
+                      fontSize: "20px",
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    {text.length > 50 ? `${text.slice(0, 50)}...` : text}
+                  </Typography>
+                </Link>
+              </Box>
+            ))}
+        </div>
+      </div>
 
       <Zoom>
-        <div style={{ margin: "0 auto", width: "80%" }}>
-          <Carousel
+        <div style={{ marginLeft: "620px", width: "80%", height: "30%" }}>
+          {/* <Carousel
             showArrows={true}
             showStatus={false}
             showThumbs={false}
             autoPlay={true}
             interval={5000}
-            width={"100%"} // Adjust the width of the Carousel
-            height={"auto"} // Adjust the height of the Carousel
+            width={"50%"} // Adjust the width of the Carousel
+            height={"40%"} // Adjust the height of the Carousel
           >
             {slides.map((slide, index) => (
               <div key={index}>
@@ -185,7 +254,7 @@ const Home = ({ _id, title, link }) => {
                 />
               </div>
             ))}
-          </Carousel>
+          </Carousel> */}
         </div>
       </Zoom>
 
