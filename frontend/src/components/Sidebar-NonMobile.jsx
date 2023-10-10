@@ -65,7 +65,7 @@ export default function SidebarNonMobile() {
         }}
       >
         <Box width={"100%"}>
-          <Toolbar>
+          <Toolbar sx={{ boxShadow: "none" }}>
             <Box
               display={"flex"}
               justifyContent={"space-between"}

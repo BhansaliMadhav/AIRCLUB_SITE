@@ -25,7 +25,6 @@ function MyComponent() {
   useEffect(() => {
     const client = new ClientJS();
     const fingerprint = client.getFingerprint();
-    // console.log("Fingerprint:", fingerprint);
   }, []);
 }
 
