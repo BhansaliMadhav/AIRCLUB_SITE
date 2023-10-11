@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Box, Card, useMediaQuery, useTheme, Button } from "@mui/material";
+import { Box, Card, useMediaQuery, useTheme } from "@mui/material";
 import { Typography } from "@mui/material";
 import { useGetAnnouncementsQuery } from "state/api";
 import Announcement from "../announcement";
@@ -12,18 +12,20 @@ import { tokens } from "theme";
 import { Avatar } from "@mui/material";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import droneImage from "images/drone.jpeg";
-import colloqiumimage from "images/coll-5.jpeg";
+import MuiImageSlider from "mui-image-slider";
+
 import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom"; // Import the Fade animation component
-
+import image1 from "images/img1.jpg";
+import makima from "images/makima.jpg";
+import back2 from "images/back3.jpeg";
+import abc from "images/ABC.jpg";
 import back from "images/back-g.jpg";
+import image2 from "images/img2 .jpg";
 import image3 from "images/img3.jpeg";
 import slideshow1 from "images/WhatsApp Image 2023-08-08 at 13.49.32 (1).jpeg";
 import slideshow2 from "images/WhatsApp Image 2023-08-08 at 13.49.32.jpeg";
-//import Slider from "@mui/lab/"
-import backgroundImage from "images/1.jpg";
-import { DoubleArrowOutlined } from "@mui/icons-material";
+//import Slider from "@mui/lab/";
 
 const Home = ({ _id, title, link }) => {
   const theme = useTheme();
@@ -63,77 +65,48 @@ const Home = ({ _id, title, link }) => {
       m={isMobile ? "2vh 5vw" : "-5.75rem 0 0 0"}
     >
       <div style={{ padding: "0", margin: "0", width: "100%" }}>
-        <img src={backgroundImage} style={{ height: "800px", width: "100%" }} />
+        <img src={back} style={{ height: "800px", width: "100%" }} />
         <div
           style={{
             position: "absolute",
-            top: "140px",
-            left: "50px",
+            top: "100px",
+            left: "10px",
             padding: "0",
             margin: "0",
           }}
         >
           <Typography
             sx={{
-              fontFamily: "sans-serif",
-              fontWeight: "bold",
-
-              fontSize: "70px",
+              fontFamily: "Merriweather",
+              fontWeight: "400",
+              fontStyle: "italic",
+              fontSize: "100px",
               textAlign: "left",
             }}
           >
-            Unleashing Innovation
+            We Build
           </Typography>
           <Typography
             sx={{
-              fontFamily: "sans-serif",
-              fontWeight: "400",
-              fontSize: "70px",
-              marginTop: "-30px",
+              fontFamily: "Poppins",
+              fontWeight: "bold",
+              fontSize: "120px",
+              marginTop: "-50px",
               textAlign: "left",
             }}
           >
-            One byte at a time
+            Realities
           </Typography>
-          <div
-            style={{
-              width: "100%",
-              alignItems: "left",
-              justifyContent: "left",
-              textAlign: "left",
-              marginTop: "-10px",
-            }}
-          >
-            <DoubleArrowOutlined
-              style={{
-                stroke: "#000",
-                fontSize: "72px",
-                rotate: "90deg",
-                strokeWidth: "1.5",
-              }}
-            />
-          </div>
         </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          margin: "1.5rem 0",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            marginRight: "5rem",
-            marginLeft: "5rem",
-          }}
-        >
+      <div style={{ display: "flex", width: "100%" }}>
+        <div style={{ marginRight: "5rem", marginLeft: "5rem" }}>
           <Typography
             sx={{
               fontFamily: "Poppins",
               fontSize: "40px",
               fontWeight: "600",
+              marginTop: "30px",
               textAlign: "left",
               width: "250px",
             }}
@@ -215,177 +188,6 @@ const Home = ({ _id, title, link }) => {
             ))}
         </div>
       </div>
-      <hr style={{ width: "90%", borderBottom: "3px solid #fff" }} />
-      <Box
-        width={"100%"}
-        paddingLeft={"5%"}
-        paddingRight={"10%"}
-        marginTop={"3%"}
-        marginBottom={"3%"}
-      >
-        <Box justifyContent={"left"} width={"100%"}>
-          <Typography fontSize={"36px"} textAlign={"left"} fontWeight={"bold"}>
-            Hi there!
-          </Typography>
-          <Typography
-            fontSize={"22px"}
-            mt={"1.5rem"}
-            textAlign={"justify"}
-            fontWeight={"400"}
-          >
-            We're a dynamic and passionate group of undergraduate students who
-            are deeply immersed in the world of artificial intelligence and
-            robotics. Our club is a hub of innovation and a platform for
-            enthusiastic young minds to come together and explore the exciting
-            realms of AI and robotics.
-          </Typography>
-          <Typography
-            mt={"1rem"}
-            fontSize={"22px"}
-            textAlign={"justify"}
-            fontWeight={"400"}
-          >
-            Here at our club, you'll find an array of thrilling projects that
-            span the technological spectrum. We've ventured into the skies with
-            automated drones, conquered precision and control with our robotic
-            arm, and delved into the immersive world of Augmented Reality (AR).
-            Our Micromouse project has challenged our members to design and
-            build autonomous, maze-solving robots, showcasing our dedication to
-            problem-solving.
-          </Typography>
-          <Button
-            variant="outlined"
-            sx={{
-              padding: "7px 30px",
-              fontSize: "24px",
-              borderRadius: "4rem",
-              border: "",
-              color: "#fff",
-              boxShadow: `0px 0px 7px #18C9AC`,
-              width: "20rem",
-              marginTop: "1.5rem",
-            }}
-          >
-            Join us !
-          </Button>
-        </Box>
-      </Box>
-      <hr
-        style={{
-          width: "90%",
-          borderBottom: "3px solid #fff",
-        }}
-      />
-      <Fade bottom duration={1500}>
-        <Box
-          display={"flex"}
-          textAlign={"justify"}
-          sx={{
-            background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(196, 100%, 41%, 1) 40%, hsla(196, 100%, 21%, 1) 92%)`,
-          }}
-          mt={"0%"}
-          marginLeft={"80px"}
-          marginRight={"80px"}
-          pt={"1.5%"}
-          pl={"4%"}
-          pr={"4%"}
-          columnGap={"7%"}
-          alignItems={"center"}
-          alignContent={"center"}
-        >
-          <div>
-            <Zoom>
-              <img
-                src={droneImage}
-                alt="this is a robotic hand"
-                style={{
-                  // To occupy half the space
-                  marginTop: "20%",
-                  borderRadius: "10px", // To give it a circular shape
-                  maxWidth: "350px",
-                  minHeight: "350px", // To add a box shadow with dark green color
-                }}
-              />
-            </Zoom>
-          </div>
-          <div>
-            <Typography
-              color={"#FFF"}
-              fontSize={"36px"}
-              mt={2}
-              fontWeight={"bold"}
-            >
-              Our Projects
-            </Typography>
-            <Typography color={"#fff"} fontSize={"20px"} mt={2}>
-              Our journey through innovation and technology has led us to a
-              diverse range of remarkable projects. We've ventured into the
-              creation of a versatile quadcopter drone and a hexacopter - a
-              six-rotor aerial system, designed a simple yet effective robotic
-              arm, and organized the immersive event "Vision X," showcasing the
-              boundless possibilities of Augmented Reality.
-            </Typography>
-            <Typography color={"#fff"} fontSize={"20px"} mt={2}>
-              In addition to these accomplishments, we are also actively engaged
-              in several ongoing projects, including the development of a
-              Micromouse – a miniature, maze-solving robot, and the creation of
-              an advanced Rover for exploring terrestrial environments.
-            </Typography>
-          </div>
-        </Box>
-      </Fade>
-      <Fade bottom duration={1500}>
-        <Box
-          display={"flex"}
-          textAlign={"justify"}
-          sx={{
-            background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(196, 100%, 41%, 1) 40%, hsla(196, 100%, 21%, 1) 92%)`,
-          }}
-          marginLeft={"80px"}
-          marginRight={"80px"}
-          pl={"4%"}
-          pr={"4%"}
-          columnGap={"6%"}
-          alignItems={"center"}
-          alignContent={"center"}
-        >
-          <div>
-            <Typography color={"#FFF"} fontSize={"36px"} fontWeight={"bold"}>
-              Our Events
-            </Typography>
-            <Typography color={"#fff"} fontSize={"20px"} mt={2}>
-              Numerous thrilling events have taken place, among which we have
-              Colloquium '23, a poster presentation extravaganza. Additionally,
-              a robotic workshop was conducted, featuring the esteemed CEO of
-              Nugenix Robotics. Furthermore, we offered a comprehensive
-              exploration of the fundamentals of deep learning, led by the DLI
-              ambassador, Dr. Sri Phani Krishna Sir.
-            </Typography>
-          </div>
-          <div>
-            <Zoom>
-              <img
-                src={colloqiumimage}
-                alt="this is a robotic hand"
-                style={{
-                  // To occupy half the space
-                  marginTop: "20%",
-                  borderRadius: "10px", // To give it a circular shape
-                  maxWidth: "500px",
-                  minHeight: "350px", // To add a box shadow with dark green color
-                }}
-              />
-            </Zoom>
-          </div>
-        </Box>
-      </Fade>
-      <hr
-        style={{
-          width: "90%",
-          borderBottom: "3px solid #fff",
-          marginTop: "3rem",
-        }}
-      />
       <Fade bottom duration={1500}>
         <Box
           display={"flex"}
@@ -402,7 +204,6 @@ const Home = ({ _id, title, link }) => {
           pb={!isMobile ? "4%" : "8%"}
           pl={"4%"}
           pr={"4%"}
-          gap={"10%"}
         >
           <div>
             <Zoom>
@@ -410,33 +211,21 @@ const Home = ({ _id, title, link }) => {
                 src={image3}
                 alt="this is a robotic hand"
                 style={{
-                  marginTop: "20px",
+                  margin: "20px",
                   // To occupy half the space
-                  borderRadius: "10px", // To give it a circular shape
+                  borderRadius: "10px",
+                  marginRight: "110px",
+                  // To give it a circular shape
                   maxWidth: "400px",
                   minHeight: "450px", // To add a box shadow with dark green color
                 }}
               />
-              <Typography
-                fontSize={"36px"}
-                fontWeight="bold"
-                mt={1}
-                textAlign={"center"}
-                width={"100%"}
-              >
-                Sri Phani Krishna
-              </Typography>
-              <Typography
-                fontSize={"16px"}
-                mt={-1}
-                textAlign={"center"}
-                width={"100%"}
-              >
-                Mentor, AI & Robotics Club
-              </Typography>
             </Zoom>
           </div>
           <div>
+            <Typography fontSize={"36px"} fontWeight="bold" mt={4}>
+              Sriman Phani Krishna
+            </Typography>
             <Typography color={"#2EEECE"} fontSize={"20px"} mt={2}>
               Artificial Intelligence (AI) and Robotics are two revolutionary
               fields that have the potential to transform various aspects of
@@ -565,6 +354,25 @@ const Home = ({ _id, title, link }) => {
               </Zoom>
             </div>
           </Box>
+          <Typography fontSize={"60px"} fontWeight="bold" mt={4}>
+            About Us
+          </Typography>
+          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
+            The AI & Robotics Club at NIT Andhra Pradesh is a passionate group
+            of students dedicated to exploring the world of artificial
+            intelligence and robotics. Our mission is to foster innovation and
+            creativity through hands-on projects, workshops, and engaging
+            events. We believe in pushing the boundaries of technology and
+            making a positive impact on society through our endeavors.
+          </Typography>
+          <Typography fontSize={"30px"} fontWeight="bold" mt={4}>
+            Random Message of Enthusiasm:
+          </Typography>
+          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
+            "Together, we are shaping the future, one robot at a time. Let's
+            discover, learn, and build amazing things that will change the
+            world!"
+          </Typography>
         </Fade>
       </div>
     </Box>

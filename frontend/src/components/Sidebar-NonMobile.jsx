@@ -62,10 +62,12 @@ export default function SidebarNonMobile() {
           alignItems: "center",
           zIndex: 1,
           whiteSpace: "nowrap", // Prevent text from wrapping
+          border: "none",
+          boxShadow: "none",
         }}
       >
         <Box width={"100%"}>
-          <Toolbar sx={{ boxShadow: "none" }}>
+          <Toolbar sx={{ boxShadow: "none", border: "none" }}>
             <Box
               display={"flex"}
               justifyContent={"space-between"}
