@@ -23,18 +23,6 @@ const MemberRequest = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    department: {
-      type: String,
-      required: true,
-    },
-    domain: {
-      type: String,
-      required: true,
-    },
-    resumeLink: {
-      type: String,
-      required: true,
-    },
     requestApproved: {
       type: Boolean,
     },

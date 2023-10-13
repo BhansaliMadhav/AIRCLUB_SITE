@@ -24,6 +24,7 @@
     "clientjs": "^0.2.1",
     "dotenv": "^16.3.1",
     "formik": "^2.4.2",
+    "gsap": "^3.12.2",
     "jsonwebtoken": "^9.0.0",
     "mui-image-slider": "^1.0.7",
     "react": "^18.2.0",

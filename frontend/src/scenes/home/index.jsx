@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, Card, useMediaQuery, useTheme } from "@mui/material";
-import { Typography } from "@mui/material";
+import { Typography, TextField } from "@mui/material";
 import { useGetAnnouncementsQuery } from "state/api";
 import Announcement from "../announcement";
 import HeaderMobile from "components-mobile/HeaderMobile";
@@ -17,16 +17,10 @@ import droneImage from "images/drone.jpeg";
 import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom"; // Import the Fade animation component
 import backgroundimage from "images/1.jpg";
-import makima from "images/makima.jpg";
-import back2 from "images/back3.jpeg";
-import abc from "images/ABC.jpg";
-import back from "images/back-g.jpg";
-import image2 from "images/img2 .jpg";
-import image3 from "images/img3.jpeg";
 import colloqiumImage from "images/coll-5.jpeg";
 import slideshow1 from "images/WhatsApp Image 2023-08-08 at 13.49.32 (1).jpeg";
 import slideshow2 from "images/WhatsApp Image 2023-08-08 at 13.49.32.jpeg";
-//import Slider from "@mui/lab/";
+import { TweenMax, Power3 } from "gsap";
 
 const Home = ({ _id, title, link }) => {
   const theme = useTheme();
@@ -36,7 +30,10 @@ const Home = ({ _id, title, link }) => {
   const slides = [slideshow1, slideshow2];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showAnnouncements, setShowAnnouncements] = useState(false);
-
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   useEffect(() => {
     if (data && !isLoading) {
       setShowAnnouncements(true);
@@ -55,6 +52,35 @@ const Home = ({ _id, title, link }) => {
   const items1 = data
     ? data.map(({ title, link, _id }) => ({ text: title, link, _id }))
     : [];
+  let logoIcon = useRef("hello World");
+
+  async function handleFormSubmit(event) {
+    event.preventDefault();
+
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + "/member/becomeMember",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_UserApiKey}`,
+        },
+
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          phone,
+        }),
+      }
+    );
+    const data = await response.json();
+    if (data.requestRecived === true) {
+      alert("Request Submitted");
+    } else {
+      alert("Request Already recived with one of the same contact details");
+    }
+  }
 
   return (
     <Box
@@ -63,10 +89,13 @@ const Home = ({ _id, title, link }) => {
       alignItems="center"
       justifyContent="center"
       textAlign="center" // Center both horizontally and vertically
-      m={isMobile ? "2vh 5vw" : "-5.75rem 0 0 0"}
+      m={isMobile ? "2vh 5vw" : "-5.5rem 0 0 0"}
     >
       <div style={{ padding: "0", margin: "0", width: "100%" }}>
-        <img src={backgroundimage} style={{ height: "100vh", width: "100%" }} />
+        <img
+          src={backgroundimage}
+          style={{ height: "100vh", width: "100%", opacity: "0" }}
+        />
         <div
           style={{
             position: "absolute",
@@ -88,7 +117,7 @@ const Home = ({ _id, title, link }) => {
           </Typography>
           <Typography
             sx={{
-              fontFamily: "sans-serif",
+              fontFamily: "Gabarito",
               fontSize: "78px",
               marginTop: "-40px",
               textAlign: "left",
@@ -96,7 +125,14 @@ const Home = ({ _id, title, link }) => {
           >
             One byte at a time
           </Typography>
-          <div style={{ textAlign: "left", width: "100%" }}>
+          <div
+            style={{
+              textAlign: "left",
+              width: "100%",
+              marginTop: "-1.5rem",
+              marginLeft: "-0.4rem",
+            }}
+          >
             <DoubleArrowOutlined
               style={{
                 fontSize: "72px",
@@ -260,6 +296,9 @@ const Home = ({ _id, title, link }) => {
                 border: "2px solid #fff",
                 borderRadius: "4rem",
                 fontSize: "24px",
+                marginTop: "1rem",
+                marginBottom: "1rem",
+                width: "13rem",
               }}
             >
               Join Us !
@@ -370,173 +409,111 @@ const Home = ({ _id, title, link }) => {
         </Box>
       </Fade>
       <hr style={{ width: "90%", border: "#fff 2px solid " }} />
-      <Fade bottom duration={1500}>
-        <Box
-          display={"flex"}
-          textAlign={"justify"}
-          sx={{
-            background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(196, 100%, 41%, 1) 40%, hsla(196, 100%, 21%, 1) 92%)`,
-          }}
-          borderRadius={20}
-          mt={"0%"}
-          marginLeft={"20px"}
-          marginRight={"20px"}
-          mb={"4%"}
-          pt={"1.5%"}
-          pb={!isMobile ? "4%" : "8%"}
-          pl={"4%"}
-          pr={"4%"}
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          alignContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          sx={{ marginLeft: "5rem", marginTop: "-4rem" }}
+          variant={"h2"}
+          color={"#fff"}
+          textAlign={"left"}
+          width={"13rem"}
+          fontSize={"48px"}
+          fontWeight={"600"}
         >
-          <div>
-            <Zoom>
-              <img
-                src={image3}
-                alt="this is a robotic hand"
-                style={{
-                  margin: "20px",
-                  // To occupy half the space
-                  borderRadius: "10px",
-                  marginRight: "110px",
-                  // To give it a circular shape
-                  maxWidth: "400px",
-                  minHeight: "450px", // To add a box shadow with dark green color
-                }}
+          {" "}
+          Contact Us !
+        </Typography>
+        <Box
+          mt={"3rem"}
+          justifyContent={"center"}
+          display={"flex"}
+          width={"100%"}
+        >
+          <form onSubmit={handleFormSubmit} style={{ width: "75%" }}>
+            <Box
+              display="grid"
+              rowGap={"30px"}
+              columnGap={"5rem"}
+              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+              sx={{
+                "& > div": { gridColumn: !isMobile ? undefined : "span 4" },
+                "& #file-upload-button": {
+                  color: "transparent",
+                },
+              }}
+            >
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="First Name"
+                onChange={(e) => setFirstName(e.target.value)}
+                value={firstName}
+                name="firstName"
+                required
+                autoComplete="off"
+                sx={{ gridColumn: "span 2" }}
               />
-            </Zoom>
-          </div>
-          <div>
-            <Typography fontSize={"36px"} fontWeight="bold" mt={4}>
-              Sriman Phani Krishna
-            </Typography>
-            <Typography color={"#2EEECE"} fontSize={"20px"} mt={2}>
-              Artificial Intelligence (AI) and Robotics are two revolutionary
-              fields that have the potential to transform various aspects of
-              human life. From automation and optimization to healthcare and
-              education, AI and Robotics play crucial roles in shaping the
-              future. Here are some key points highlighting their importance in
-              our lives:
-            </Typography>
-            <Typography color={"#2EEECE"} fontSize={"20px"} mt={2}>
-              - Automation: AI and Robotics enable automation of repetitive
-              tasks, freeing up human resources for more creative and complex
-              endeavors.
-            </Typography>
-            <Typography color={"#2EEECE"} fontSize={"20px"} mt={2}>
-              - Healthcare: AI-powered medical devices and robotics aid in
-              diagnostics, surgery, and patient care, improving healthcare
-              outcomes and saving lives.
-            </Typography>
-          </div>
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Last Name"
+                onChange={(e) => setLastName(e.target.value)}
+                value={lastName}
+                name="lastName"
+                required
+                sx={{ gridColumn: "span 2" }}
+                autoComplete="off"
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="email"
+                label="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                name="email"
+                required
+                sx={{ gridColumn: "span 2" }}
+                autoComplete="off"
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Contact Number"
+                onChange={(e) => setPhone(e.target.value)}
+                value={phone}
+                name="phone"
+                required
+                sx={{ gridColumn: "span 2" }}
+                autoComplete="off"
+              />
+            </Box>
+            <Box display="flex" justifyContent="end" mt="20px">
+              <Button
+                type="submit"
+                color="secondary"
+                variant="contained"
+                style={{
+                  background: "black", // Set the background color to black
+                  color: "white", // Set the text color to white
+                  border: "2px solid darkgreen", // Add a 2px solid green border
+                }}
+                sx={{ marginBottom: "2rem" }}
+              >
+                Submit
+              </Button>
+            </Box>
+          </form>
         </Box>
-      </Fade>
-
-      <Zoom>
-        <div style={{ marginLeft: "620px", width: "80%", height: "30%" }}>
-          {/* <Carousel
-            showArrows={true}
-            showStatus={false}
-            showThumbs={false}
-            autoPlay={true}
-            interval={5000}
-            width={"50%"} // Adjust the width of the Carousel
-            height={"40%"} // Adjust the height of the Carousel
-          >
-            {slides.map((slide, index) => (
-              <div key={index}>
-                <img
-                  src={slide}
-                  alt={`slide ${index}`}
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    borderRadius: "10px",
-                    border: "2px solid black",
-                    boxShadow: "5px 4px 16px #18C9AC",
-                  }}
-                />
-              </div>
-            ))}
-          </Carousel> */}
-        </div>
-      </Zoom>
-
-      <div>
-        <Fade>
-          <Box
-            display={"flex"}
-            textAlign={"justify"}
-            sx={{
-              background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(120, 24%, 38%, 1) 40%, hsla(120, 24%, 19%, 1) 92%)`,
-            }}
-            mt={"2%"}
-            mb={"4%"}
-            marginLeft={"20px"}
-            marginRight={"20px"}
-            pt={"1.5%"}
-            pb={!isMobile ? "4%" : "8%"}
-            pl={"4%"}
-            pr={"4%"}
-          >
-            <div>
-              <Typography fontSize={"36px"} fontWeight="bold" mt={4}>
-                Various New Technologies Used:
-              </Typography>
-              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-                - Raspberry Pi: A small, affordable single-board computer that
-                can be used for a variety of projects, from home automation to
-                robotics.
-              </Typography>
-              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-                - Arduino: An open-source electronics platform based on
-                easy-to-use hardware and software, often used for prototyping
-                and robotics projects.
-              </Typography>
-              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-                - Machine Learning: A subset of AI that enables machines to
-                learn from data and make predictions or decisions based on that
-                learning.
-              </Typography>
-              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-                - Computer Vision: The field of AI and computer science that
-                focuses on enabling computers to interpret and understand visual
-                information from the world.
-              </Typography>
-              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-                - Natural Language Processing (NLP): An AI technology that
-                enables computers to understand, interpret, and generate human
-                language.
-              </Typography>
-              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-                - Robotics: The design, construction, operation, and use of
-                robots to automate tasks, perform complex actions, or interact
-                with the environment.
-              </Typography>
-              <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-                - Internet of Things (IoT): A network of interconnected devices
-                and objects that can collect and exchange data through the
-                internet.
-              </Typography>
-            </div>
-            <div>
-              <Zoom>
-                <img
-                  src={image3}
-                  alt="this is a robotic hand"
-                  style={{
-                    margin: "20px",
-                    // To occupy half the space
-                    borderRadius: "10px",
-                    marginRight: "110px",
-                    // To give it a circular shape
-
-                    maxWidth: "400px",
-                    minHeight: "450px", // To add a box shadow with dark green color
-                  }}
-                />
-              </Zoom>
-            </div>
-          </Box>
-        </Fade>
       </div>
     </Box>
   );

@@ -32,15 +32,7 @@ const BecomeMember = () => {
 
   async function handleFormSubmit(event) {
     event.preventDefault();
-    console.log({
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phone: phone,
-      department: department,
-      domain: domain === "Others" ? domainOther : domain,
-      link: link,
-    });
+
     const response = await fetch(
       process.env.REACT_APP_BASE_URL + "/member/becomeMember",
       {
@@ -54,10 +46,7 @@ const BecomeMember = () => {
           firstName,
           lastName,
           email,
-          phone,
-          department,
-          domain,
-          link,
+          phone
         }),
       }
     );
