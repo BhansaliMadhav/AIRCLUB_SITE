@@ -1,32 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { Box, useMediaQuery, useTheme } from "@mui/material";
-import { Typography } from "@mui/material";
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Box, Button, Card, useMediaQuery, useTheme } from "@mui/material";
+import { Typography, TextField } from "@mui/material";
+import { useGetAnnouncementsQuery } from "state/api";
+import Announcement from "../announcement";
 import HeaderMobile from "components-mobile/HeaderMobile";
 import HeaderNonMobile from "components/HeaderNonMobile";
-import { Link } from "react-router-dom";
-import { useGetAnnouncementsQuery } from "state/api";
+import { useGetShortAnnouncementQuery } from "state/api";
 import { tokens } from "theme";
 import { Avatar } from "@mui/material";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import MuiImageSlider from "mui-image-slider";
-
+import { DoubleArrowOutlined } from "@mui/icons-material";
+import droneImage from "images/drone.jpeg";
 import Fade from "react-reveal/Fade";
 import Zoom from "react-reveal/Zoom"; // Import the Fade animation component
-import image1 from "images/img1.jpg";
-import image2 from "images/img2 .jpg";
+import backgroundimage from "images/1.jpg";
+import colloqiumImage from "images/coll-5.jpeg";
 import slideshow1 from "images/WhatsApp Image 2023-08-08 at 13.49.32 (1).jpeg";
 import slideshow2 from "images/WhatsApp Image 2023-08-08 at 13.49.32.jpeg";
-//import Slider from "@mui/lab/";
+import { TweenMax, Power3 } from "gsap";
 
 const Home = ({ _id, title, link }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { data, isLoading } = useGetAnnouncementsQuery();
 
   const slides = [slideshow1, slideshow2];
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+  const [showAnnouncements, setShowAnnouncements] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   useEffect(() => {
+    if (data && !isLoading) {
+      setShowAnnouncements(true);
+    }
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % slides.length);
     }, 1000); // Change the interval time as needed (4000ms = 4 seconds)
@@ -34,10 +45,42 @@ const Home = ({ _id, title, link }) => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [data, isLoading]);
 
   const isMobile = useMediaQuery("(max-width:1000px)");
   const secondisMobile = useMediaQuery("(max-width:1000px)");
+  const items1 = data
+    ? data.map(({ title, link, _id }) => ({ text: title, link, _id }))
+    : [];
+  let logoIcon = useRef("hello World");
+
+  async function handleFormSubmit(event) {
+    event.preventDefault();
+
+    const response = await fetch(
+      process.env.REACT_APP_BASE_URL + "/member/becomeMember",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${process.env.REACT_APP_UserApiKey}`,
+        },
+
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          phone,
+        }),
+      }
+    );
+    const data = await response.json();
+    if (data.requestRecived === true) {
+      alert("Request Submitted");
+    } else {
+      alert("Request Already recived with one of the same contact details");
+    }
+  }
 
   return (
     <Box
@@ -46,203 +89,432 @@ const Home = ({ _id, title, link }) => {
       alignItems="center"
       justifyContent="center"
       textAlign="center" // Center both horizontally and vertically
-      m={isMobile ? "2vh 5vw" : "1.5rem 2.5rem"}
-      sx={{
-        color: theme.palette.background.main,
-        background: theme.palette.background.main,
-      }}
+      m={isMobile ? "2vh 5vw" : "-5.5rem 0 0 0"}
     >
-      {isMobile ? (
-        <HeaderMobile
-          title={
-            <Typography variant="h3" fontWeight="bold" colo>
-              AI & ROBOTICS CLUB
-            </Typography>
-          }
-          subTitle={
-            <Typography variant="h2" fontWeight="bold">
-              NIT ANDHRA PRADESH
-            </Typography>
-          }
-        />
-      ) : (
-        <HeaderNonMobile
-          title={
-            <Typography
-              fontSize={"90px"}
-              fontWeight="bold"
-              fontFamily={"serif"}
-            >
-              AI & ROBOTICS CLUB
-            </Typography>
-          }
-          subTitle={
-            <Typography
-              fontSize={"40px"}
-              fontWeight="bold"
-              fontFamily={"serif"}
-            >
-              NIT ANDHRA PRADESH
-            </Typography>
-          }
-        />
-      )}
-      <Zoom>
+      <div style={{ padding: "0", margin: "0", width: "100%" }}>
         <img
-          src={image1}
-          alt="this is a robotic hand"
-          style={{
-            margin: "40px 10px 40px 10px",
-
-            width: isMobile ? "85%" : "60%", // To occupy half the space
-            borderRadius: "10px", // To give it a circular shape
-            border: "2px solid black", // To add a black border
-            boxShadow: "0 4px 8px darkgreen",
-          // To add a box shadow with dark green color
-          }}
+          src={backgroundimage}
+          style={{ height: "100vh", width: "100%", opacity: "0" }}
         />
-      </Zoom>
-    <div  style={{width:"600px"}}>
-      <Carousel showThumbs={false} autoPlay infiniteLoop interval={4000}>
-        {slides.map((slide, index) => (
-          <div key={index} >
-            <img src={slide} alt={`Slide ${index + 1}`} height={"500px"} width={"150px"}/>
+        <div
+          style={{
+            position: "absolute",
+            top: "100px",
+            left: "40px",
+            padding: "0",
+            margin: "0",
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "sans-serif",
+              fontWeight: "bold",
+              fontSize: "78px",
+              textAlign: "left",
+            }}
+          >
+            Unleashing Innovation
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: "Gabarito",
+              fontSize: "78px",
+              marginTop: "-40px",
+              textAlign: "left",
+            }}
+          >
+            One byte at a time
+          </Typography>
+          <div
+            style={{
+              textAlign: "left",
+              width: "100%",
+              marginTop: "-1.5rem",
+              marginLeft: "-0.4rem",
+            }}
+          >
+            <DoubleArrowOutlined
+              style={{
+                fontSize: "72px",
+                stroke: "#000000",
+                strokeWidth: "1.5",
+                rotate: "90deg",
+              }}
+            />
           </div>
-        ))}
-        </Carousel>
         </div>
+      </div>
+      <div style={{ display: "flex", width: "100%", margin: "1.5rem 0" }}>
+        <div style={{ marginRight: "5rem", marginLeft: "5rem" }}>
+          <Typography
+            sx={{
+              fontFamily: "Poppins",
+              fontSize: "40px",
+              fontWeight: "600",
+              marginTop: "30px",
+              textAlign: "left",
+              width: "250px",
+            }}
+          >
+            Recent Announcements
+          </Typography>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            width: "65%",
+            marginLeft: "40px",
+            overflowX: "auto",
+            marginRight: "0",
+          }}
+        >
+          {showAnnouncements &&
+            items1.map(({ text, link, _id }, index) => (
+              <Box
+                sx={{
+                  m: secondisMobile
+                    ? "1rem 0.5rem 0rem 0.5rem"
+                    : "2rem 2rem 2rem 2rem",
+                  fontSize: "4rem", // Doubled the font size
+                  color: "black",
+                  backgroundColor: "#000000",
+                  borderRadius: "8px",
+                  padding: "1rem",
+                  textAlign: "left",
+                  boxShadow: `0px 0px 7px #18C9AC`,
+                  display: "flex", // Align text vertically
+                  alignItems: "end", // Center text vertically
+                  justifyContent: "center", // Center text horizontally
+                  height: "7rem",
+                }}
+              >
+                <Link
+                  to={`${link}`}
+                  variant="h3"
+                  sx={{
+                    m: secondisMobile
+                      ? "1rem 0.5rem 0rem 0.5rem"
+                      : "2.25rem 0 1rem 1.25rem",
+                    color: theme.palette.text.alt3,
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    textDecoration: "none",
+                    fontStyle: "italic",
+                    width: "15rem",
+                  }}
+                >
+                  <Typography
+                    style={{
+                      color: "#FFFFFF",
+                      fontFamily: "Arial",
+                      fontWeight: 600,
+                      fontSize: "20px",
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    {text.length > 50 ? `${text.slice(0, 50)}...` : text}
+                  </Typography>
+                  <Typography
+                    style={{
+                      color: "#FFFFFF",
+                      fontFamily: "Arial",
+                      fontWeight: 400,
+                      fontSize: "12px",
+                      wordWrap: "break-word",
+                    }}
+                  >
+                    {text.length > 50 ? `${text.slice(0, 50)}...` : text}
+                  </Typography>
+                </Link>
+              </Box>
+            ))}
+        </div>
+      </div>
+      <hr style={{ width: "90%", border: "#fff 2px solid " }} />
+      <Box
+        display={"flex"}
+        textAlign={"justify"}
+        sx={{
+          background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(196, 100%, 41%, 1) 40%, hsla(196, 100%, 21%, 1) 92%)`,
+        }}
+        mt={"3%"}
+        marginLeft={"20px"}
+        marginRight={"20px"}
+        pt={"1.5%"}
+        pb={!isMobile ? "2%" : "8%"}
+        pl={"4%"}
+        pr={"4%"}
+        columnGap={"7%"}
+        alignContent={"center"}
+        width={"100%"}
+        alignItems={"center"}
+        justifyContent="center"
+      >
+        <div
+          style={{ width: "77%", alignItems: "center", alignContent: "center" }}
+        >
+          <Typography
+            fontSize={"36px"}
+            textAlign={"left"}
+            fontWeight="bold"
+            mt={4}
+          >
+            Hi there !
+          </Typography>
+          <Typography color={"#fff"} fontSize={"22px"} mt={2}>
+            We're a dynamic and passionate group of undergraduate students who
+            are deeply immersed in the world of artificial intelligence and
+            robotics. Our club is a hub of innovation and a platform for
+            enthusiastic young minds to come together and explore the exciting
+            realms of AI and robotics.
+          </Typography>
+          <Typography color={"#fff"} fontSize={"22px"} mt={2}>
+            Here at our club, you'll find an array of thrilling projects that
+            span the technological spectrum. We've ventured into the skies with
+            automated drones, conquered precision and control with our robotic
+            arm, and delved into the immersive world of Augmented Reality (AR).
+            Our Micromouse project has challenged our members to design and
+            build autonomous, maze-solving robots, showcasing our dedication to
+            problem-solving.
+          </Typography>
+          <div
+            style={{
+              display: "flex",
+              columnGap: "7%",
+              width: "100%",
+              justifyContent: "center",
+              marginTop: "3%",
+            }}
+          >
+            <Button
+              variant="outlined"
+              sx={{
+                color: "#fff",
+                border: "2px solid #fff",
+                borderRadius: "4rem",
+                fontSize: "24px",
+                marginTop: "1rem",
+                marginBottom: "1rem",
+                width: "13rem",
+              }}
+            >
+              Join Us !
+            </Button>
+          </div>
+        </div>
+      </Box>
+      <hr style={{ width: "90%", border: "#fff 2px solid " }} />
       <Fade bottom duration={1500}>
         <Box
+          display={"flex"}
           textAlign={"justify"}
           sx={{
-            background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(120, 24%, 38%, 1) 40%, hsla(120, 24%, 19%, 1) 92%)`,
+            background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(196, 100%, 41%, 1) 40%, hsla(196, 100%, 21%, 1) 92%)`,
           }}
-          borderRadius={20}
-          boxShadow="5px 4px 16px green"
-          mt={"2%"}
-          mb={"4%"}
+          mt={"3%"}
+          marginLeft={"20px"}
+          marginRight={"20px"}
           pt={"1.5%"}
           pb={!isMobile ? "4%" : "8%"}
           pl={"4%"}
           pr={"4%"}
+          columnGap={"7%"}
+          alignContent={"center"}
         >
-          <Typography fontSize={"36px"} fontWeight="bold" mt={4}>
-            Importance of AI and Robotics in Life
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            Artificial Intelligence (AI) and Robotics are two revolutionary
-            fields that have the potential to transform various aspects of human
-            life. From automation and optimization to healthcare and education,
-            AI and Robotics play crucial roles in shaping the future. Here are
-            some key points highlighting their importance in our lives:
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            - Automation: AI and Robotics enable automation of repetitive tasks,
-            freeing up human resources for more creative and complex endeavors.
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            - Healthcare: AI-powered medical devices and robotics aid in
-            diagnostics, surgery, and patient care, improving healthcare
-            outcomes and saving lives.
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            - Education: AI-driven adaptive learning platforms personalize
-            educational content, enhancing student engagement and learning
-            outcomes.
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            - Industry: Robotics and automation streamline industrial processes,
-            increasing efficiency and productivity in manufacturing and beyond.
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            - Future Innovations: AI and Robotics hold the potential to unlock
-            unimaginable innovations and discoveries, leading to a better and
-            more sustainable future for humanity.
-          </Typography>
+          <div style={{ marginTop: "1.5%" }}>
+            <Zoom>
+              <img
+                src={droneImage}
+                alt="this is a robotic hand"
+                style={{
+                  // To occupy half the space
+                  borderRadius: "10px",
+
+                  // To give it a circular shape
+                  maxWidth: "350px",
+                  minHeight: "350px", // To add a box shadow with dark green color
+                }}
+              />
+            </Zoom>
+          </div>
+          <div>
+            <Typography fontSize={"36px"} fontWeight="bold" mt={4}>
+              Our Projects
+            </Typography>
+            <Typography color={"#fff"} fontSize={"22px"} mt={2}>
+              Our journey through innovation and technology has led us to a
+              diverse range of remarkable projects. We've ventured into the
+              creation of a versatile quadcopter drone and a hexacopter - a
+              six-rotor aerial system, designed a simple yet effective robotic
+              arm, and organized the immersive event "Vision X," showcasing the
+              boundless possibilities of Augmented Reality.
+            </Typography>
+            <Typography color={"#fff"} fontSize={"22px"} mt={2}>
+              In addition to these accomplishments, we are also actively engaged
+              in several ongoing projects, including the development of a
+              Micromouse – a miniature, maze-solving robot, and the creation of
+              an advanced Rover for exploring terrestrial environments.
+            </Typography>
+          </div>
         </Box>
       </Fade>
-      <Zoom>
-        <img
-          src={image2}
-          alt="this is a robotic hand"
-          style={{
-            margin: "10px",
-            width: isMobile ? "85%" : "50%", // To occupy half the space
-            borderRadius: "10px", // To give it a circular shape
-            border: "2px solid black", // To add a black border
-            boxShadow: "0 4px 8px darkgreen", // To add a box shadow with dark green color
-          }}
-        />
-      </Zoom>
-      <Fade>
+      <Fade bottom duration={1500}>
         <Box
+          display={"flex"}
           textAlign={"justify"}
           sx={{
-            background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(120, 24%, 38%, 1) 40%, hsla(120, 24%, 19%, 1) 92%)`,
+            background: `hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(196, 100%, 41%, 1) 40%, hsla(196, 100%, 21%, 1) 92%)`,
           }}
-          borderRadius={20}
-          boxShadow="5px 4px 16px green"
-          mt={"2%"}
-          mb={"4%"}
+          mt={"3%"}
+          marginLeft={"20px"}
+          marginRight={"20px"}
           pt={"1.5%"}
           pb={!isMobile ? "4%" : "8%"}
           pl={"4%"}
           pr={"4%"}
+          columnGap={"7%"}
         >
-          <Typography fontSize={"36px"} fontWeight="bold" mt={4}>
-            Various New Technologies Used:
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            - Raspberry Pi: A small, affordable single-board computer that can
-            be used for a variety of projects, from home automation to robotics.
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            - Arduino: An open-source electronics platform based on easy-to-use
-            hardware and software, often used for prototyping and robotics
-            projects.
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            - Machine Learning: A subset of AI that enables machines to learn
-            from data and make predictions or decisions based on that learning.
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            - Computer Vision: The field of AI and computer science that focuses
-            on enabling computers to interpret and understand visual information
-            from the world.
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            - Natural Language Processing (NLP): An AI technology that enables
-            computers to understand, interpret, and generate human language.
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            - Robotics: The design, construction, operation, and use of robots
-            to automate tasks, perform complex actions, or interact with the
-            environment.
-          </Typography>
-          <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-            - Internet of Things (IoT): A network of interconnected devices and
-            objects that can collect and exchange data through the internet.
-          </Typography>
+          <div>
+            <Typography fontSize={"36px"} fontWeight="bold" mt={4}>
+              Our Events
+            </Typography>
+            <Typography color={"#fff"} fontSize={"22px"} mt={2}>
+              Numerous thrilling events have taken place, among which we have
+              Colloquium '23, a poster presentation extravaganza. Additionally,
+              a robotic workshop was conducted, featuring the esteemed CEO of
+              Nugenix Robotics. Furthermore, we offered a comprehensive
+              exploration of the fundamentals of deep learning, led by the DLI
+              ambassador, Dr. Sri Phani Krishna Sir.
+            </Typography>
+          </div>
+          <div style={{}}>
+            <Zoom>
+              <img
+                src={colloqiumImage}
+                alt="this is a robotic hand"
+                style={{
+                  // To occupy half the space
+                  borderRadius: "10px",
+
+                  // To give it a circular shape
+                  maxWidth: "550px",
+                  minHeight: "400px", // To add a box shadow with dark green color
+                }}
+              />
+            </Zoom>
+          </div>
         </Box>
-        <Typography fontSize={"60px"} fontWeight="bold" mt={4}>
-          About Us
-        </Typography>
-        <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-          The AI & Robotics Club at NIT Andhra Pradesh is a passionate group of
-          students dedicated to exploring the world of artificial intelligence
-          and robotics. Our mission is to foster innovation and creativity
-          through hands-on projects, workshops, and engaging events. We believe
-          in pushing the boundaries of technology and making a positive impact
-          on society through our endeavors.
-        </Typography>
-        <Typography fontSize={"30px"} fontWeight="bold" mt={4}>
-          Random Message of Enthusiasm:
-        </Typography>
-        <Typography color={"#C4985A"} fontSize={"20px"} mt={2}>
-          "Together, we are shaping the future, one robot at a time. Let's
-          discover, learn, and build amazing things that will change the world!"
-        </Typography>
       </Fade>
+      <hr style={{ width: "90%", border: "#fff 2px solid " }} />
+      <div
+        style={{
+          display: "flex",
+          width: "100%",
+          alignContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          sx={{ marginLeft: "5rem", marginTop: "-4rem" }}
+          variant={"h2"}
+          color={"#fff"}
+          textAlign={"left"}
+          width={"13rem"}
+          fontSize={"48px"}
+          fontWeight={"600"}
+        >
+          {" "}
+          Contact Us !
+        </Typography>
+        <Box
+          mt={"3rem"}
+          justifyContent={"center"}
+          display={"flex"}
+          width={"100%"}
+        >
+          <form onSubmit={handleFormSubmit} style={{ width: "75%" }}>
+            <Box
+              display="grid"
+              rowGap={"30px"}
+              columnGap={"5rem"}
+              gridTemplateColumns="repeat(4, minmax(0, 1fr))"
+              sx={{
+                "& > div": { gridColumn: !isMobile ? undefined : "span 4" },
+                "& #file-upload-button": {
+                  color: "transparent",
+                },
+              }}
+            >
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="First Name"
+                onChange={(e) => setFirstName(e.target.value)}
+                value={firstName}
+                name="firstName"
+                required
+                autoComplete="off"
+                sx={{ gridColumn: "span 2" }}
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Last Name"
+                onChange={(e) => setLastName(e.target.value)}
+                value={lastName}
+                name="lastName"
+                required
+                sx={{ gridColumn: "span 2" }}
+                autoComplete="off"
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="email"
+                label="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                name="email"
+                required
+                sx={{ gridColumn: "span 2" }}
+                autoComplete="off"
+              />
+              <TextField
+                fullWidth
+                variant="filled"
+                type="text"
+                label="Contact Number"
+                onChange={(e) => setPhone(e.target.value)}
+                value={phone}
+                name="phone"
+                required
+                sx={{ gridColumn: "span 2" }}
+                autoComplete="off"
+              />
+            </Box>
+            <Box display="flex" justifyContent="end" mt="20px">
+              <Button
+                type="submit"
+                color="secondary"
+                variant="contained"
+                style={{
+                  background: "black", // Set the background color to black
+                  color: "white", // Set the text color to white
+                  border: "2px solid darkgreen", // Add a 2px solid green border
+                }}
+                sx={{ marginBottom: "2rem" }}
+              >
+                Submit
+              </Button>
+            </Box>
+          </form>
+        </Box>
+      </div>
     </Box>
   );
 };

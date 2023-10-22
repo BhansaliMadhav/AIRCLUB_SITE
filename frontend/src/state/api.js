@@ -23,6 +23,7 @@ export const api = createApi({
     "NewData",
     "OngoingProjectData",
     "CompletedProjectData",
+    "ShortAnnouncement"
   ],
   endpoints: (build) => ({
     getAnnouncements: build.query({
@@ -77,6 +78,10 @@ export const api = createApi({
       query: () => "project/getCompletedProjectData",
       providesTags: ["CompletedProjectData"],
     }),
+    getShortAnnouncement: build.query({
+      query: () => "announcement/getShortAnnouncement",
+      providesTags: ["ShortAnnouncement"],
+    })
   }),
 });
 
@@ -94,4 +99,5 @@ export const {
   useGetNewDataQuery,
   useGetOngoingProjectDataQuery,
   useGetCompletedProjectDataQuery,
+  useGetShortAnnouncementQuery,
 } = api;

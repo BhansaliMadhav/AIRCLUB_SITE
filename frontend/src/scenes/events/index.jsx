@@ -92,7 +92,7 @@ const Events = () => {
                       border-radius="20px"
                       background={`hsla(0, 0%, 3%, 1), linear-gradient(45deg, hsla(0, 0%, 3%, 1) 0%, hsla(120, 24%, 38%, 1) 40%, hsla(120, 24%, 19%, 1) 92%)`}
                       borderRadius={12}
-                      boxShadow={5}
+                      boxShadow="0px 0px 20px #18C9AC"
                       style={{ margin: " 20px" }}
                     >
                       <Bounce left>
@@ -119,7 +119,7 @@ const Events = () => {
                         src={`https://drive.google.com/thumbnail?id=${driveId}`}
                         alt="Event"
                         style={{
-                          width: "100%",
+                          width: "90%",
                           borderRadius: "30%",
                           marginTop: "10px",
                         }}
